@@ -195,7 +195,8 @@ const history = computed(() => {
           ...codeConfig,
           backgroundColor: '#2A2A2A',
           copyIconColor: '#8A8A8A',
-          baseTextColor: '#CCCCCC'
+          baseTextColor: '#CCCCCC',
+          title: 'JS'
         }"
         language="javascript"
       />
@@ -235,7 +236,8 @@ const history = computed(() => {
         :content="codeContent"
         v-bind="{
           backgroundColor: '#2A2A2A',
-          copyIconColor: '#8A8A8A'
+          copyIconColor: '#8A8A8A',
+          title: 'HTML'
         }"
         language="html"
       />
@@ -247,7 +249,8 @@ const history = computed(() => {
         :content="cssContent"
         v-bind="{
           backgroundColor: '#2A2A2A',
-          copyIconColor: '#8A8A8A'
+          copyIconColor: '#8A8A8A',
+          title: 'CSS'
         }"
         language="css"
       />
