@@ -25,8 +25,8 @@ const dates = ref('["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep
 const installContent = ref(`npm i tiny-spark`);
 const setupContent = ref(`import "tiny-spark/dist/tiny-spark.umd"`);
 const codeContent = ref(`
-<div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto">
-  <div class="w-full h-[200px] mx-auto">
+<div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto resize overflow-auto">
+  <div class="w-full h-full mx-auto">
     <div 
       class="tiny-spark" 
       data-curve="true"
@@ -119,8 +119,8 @@ const cssContent = ref(`
     </div>
 
     <section>
-      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto">
-        <div class="w-full h-[200px] mx-auto">
+      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto resize overflow-auto">
+        <div class="w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
             data-curve="true"
@@ -141,6 +141,7 @@ const cssContent = ref(`
         </div>
       </div>
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6">
+        The chart is responsive. Try resizing the container.<br>
         The chart is reactive. Dynamic change in data attributes will update the chart.<br>Try it out:
         <button class="bg-app-bg-grey py-1 px-4 rounded hover:shadow" @click="dataset = makeDs(12)">Random data</button>
       </div>
