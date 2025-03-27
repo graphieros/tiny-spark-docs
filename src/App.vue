@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { BrandGithubFilledIcon, TimelineIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
-import "tiny-spark/dist/tiny-spark.umd";
+import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
 
 const codeConfig = ref({
@@ -23,9 +23,14 @@ const dataset = ref(makeDs(12));
 const dates = ref('["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]')
 
 const installContent = ref(`npm i tiny-spark`);
-const setupContent = ref(`import "tiny-spark/dist/tiny-spark.umd"`);
+const setupContent = ref(`
+import { render } from "tiny-spark";
+
+// Call it immediately if your dataset is hardcoded, or call it after a fetch.
+render();
+`);
 const codeContent = ref(`
-<div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto resize overflow-auto">
+<div class="p-6 bg-app-bg-grey w-full max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize overflow-auto">
   <div class="w-full h-full mx-auto">
     <div 
       class="tiny-spark" 
@@ -80,6 +85,71 @@ const cssContent = ref(`
 }
 `)
 
+const start = ref("2025-03-26");
+const lastDate = ref(new Date(Date.now()));
+
+const end = computed(() => {
+    const day = lastDate.value.getDate();
+    const month = lastDate.value.getMonth() + 1;
+    const year = lastDate.value.getFullYear();
+    return `${year}-${String(month).length === 1 ? `0${month}` : month}-${String(day).length === 1 ? `0${day}` : day}`;
+});
+
+const url_downloads = computed(() => {
+    return `https://api.npmjs.org/downloads/range/${start.value}:${end.value}/tiny-spark`;
+});
+
+const data = ref([{ period: "", value: 0 }])
+const downloads = ref([]);
+const stars = ref(0);
+
+onMounted(() => {
+  render();
+    fetch(url_downloads.value, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'default'
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then(json => {
+            downloads.value = json.downloads;
+            data.value = json.downloads.map(d => {
+                return {
+                    period: d.day,
+                    value: d.downloads
+                }
+            }).slice(-90, -1);
+        })
+        .catch(err => {
+            data.value = [{ period: "", value: 0 }]
+        }).finally(() => {
+          render();
+        })
+
+    fetch(`https://api.github.com/repos/graphieros/tiny-spark`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            stars.value = data.stargazers_count;
+        })
+        .catch(error => {
+            console.error('There was a problem fetching the data:', error);
+        })
+});
+
+const history = computed(() => {
+  return {
+    dataset: `[${data.value.map(d => d.value).toString()}]`,
+    dates: `${data.value.map(d => `"${d.period}"`).toString()}`
+  }
+})
+
 </script>
 
 <template>
@@ -90,7 +160,7 @@ const cssContent = ref(`
             <TimelineIcon class="text-red-100"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700">v0.1.0</small>
+        <small class="text-sm text-gray-700">v0.2.0</small>
       </div>
       <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
@@ -112,14 +182,15 @@ const cssContent = ref(`
         v-bind="{
           ...codeConfig,
           backgroundColor: '#2A2A2A',
-          copyIconColor: '#8A8A8A'
+          copyIconColor: '#8A8A8A',
+          baseTextColor: '#CCCCCC'
         }"
         language="javascript"
       />
     </div>
 
     <section>
-      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto resize overflow-auto">
+      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize overflow-auto">
         <div class="w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
@@ -169,6 +240,35 @@ const cssContent = ref(`
         language="css"
       />
     </div>
+
+    <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mb-24 mx-auto">
+      <div>
+        NPM downloads: 
+        {{ start }} to {{ end }}
+      </div>
+      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto">
+          <div class="mx-auto">
+            <div 
+              class="tiny-spark" 
+              data-curve="true"
+              data-animation="true"
+              data-line-color="#4A4A4A"
+              data-area-color="#1A1A1A10"
+              data-line-thickness="3"
+              data-responsive
+              data-plot-color="#2A2A2A"
+              data-plot-radius="3"
+              data-number-locale="en-US"
+              data-number-rounding="0"
+              data-indicator-color="#8A8A8A"
+              data-indicator-width="1"
+              :data-set="history.dataset"
+              :data-dates="`[${history.dates}]`"
+            />
+          </div>
+        </div>
+    </div>
+
   </main>
 </template>
 
