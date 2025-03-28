@@ -119,7 +119,6 @@ const downloads = ref([]);
 const stars = ref(0);
 
 onMounted(() => {
-  render();
     fetch(url_downloads.value, {
         method: 'GET',
         mode: 'cors',
