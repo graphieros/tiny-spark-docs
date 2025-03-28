@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, RefreshIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, RefreshIcon, StarFilledIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -170,7 +170,7 @@ const history = computed(() => {
 <template>
   <div class="bg-layer"/>
   <main class="w-full mx-auto max-w-[1200px] px-6">
-    <header class="flex flex-row justify-between place-items-center pt-12 pb-2">
+    <header class="flex flex-row justify-between place-items-center pt-12 pb-2 pr-6">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
         <div class="flex flex-row place-items-center gap-2">
           <TinySparkLogo :size="29"/>
@@ -178,8 +178,11 @@ const history = computed(() => {
         </div>
         <small class="text-sm text-gray-700">{{ version }}</small>
       </div>
-      <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+      <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
+        <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
+            <StarFilledIcon :size="16" class="text-red-100"/> {{ stars }}
+          </div>
       </a>
     </header>
 
@@ -303,8 +306,11 @@ const history = computed(() => {
         <span class="text-sm">
           MIT license - {{ new Date().getFullYear() }}
       </span>
-        <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
           <BrandGithubFilledIcon/>
+          <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
+            <StarFilledIcon :size="16" class="text-red-100"/> {{ stars }}
+          </div>
         </a> 
       </div>
   </footer>
