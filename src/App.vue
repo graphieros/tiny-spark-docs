@@ -176,7 +176,7 @@ const history = computed(() => {
           <TinySparkLogo :size="29"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700">{{ version }}</small>
+        <small class="text-sm text-gray-700 bg-red-100 px-2 rounded-full -translate-y-1">{{ version }}</small>
       </div>
       <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
