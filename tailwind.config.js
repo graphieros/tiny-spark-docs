@@ -9,6 +9,8 @@ export default {
     extend: {
       colors: {
         "app-bg-grey": "rgb(210,210,210)",
+        "app-grey-dark": "rgb(140,150,150)",
+        "app-grey-light": "",
         "black": "#1a1a1a",
         "black-100" : "#242424",
         "app-green": "#42d392",

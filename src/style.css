@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-    background: rgb(180,180,180);
+.bg-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    height: 100svh;
+    width: 100vw;
+    pointer-events: none;
+    background: radial-gradient(at top left, rgb(170,180,180), rgb(140,150,150));
+    z-index: -1;
 }

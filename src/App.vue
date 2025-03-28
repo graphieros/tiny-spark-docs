@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, TimelineIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, TimelineIcon, RefreshIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -167,6 +167,7 @@ const history = computed(() => {
 </script>
 
 <template>
+  <div class="bg-layer"/>
   <main class="w-full mx-auto max-w-[1200px] px-6">
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
@@ -205,7 +206,7 @@ const history = computed(() => {
     </div>
 
     <section>
-      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize overflow-auto">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 border-dashed overflow-auto">
         <div class="w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
@@ -225,11 +226,17 @@ const history = computed(() => {
             :data-dates="dates"
           />
         </div>
+        <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1">
+          resize
+        </div>
+        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-red-100 pointer-events-none select-none"/>
       </div>
-      <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6">
-        The chart is responsive. Try resizing the container.<br>
-        The chart is reactive. Dynamic change in data attributes will update the chart.<br>Try it out:
-        <button class="bg-app-bg-grey py-1 px-4 rounded hover:shadow" @click="dataset = makeDs(12)">Random data</button>
+      <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
+        <span>
+          The chart is <strong>responsive</strong>. Try resizing the container.<br>
+          The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
+        </span>
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800"/> Random data</button>
       </div>
     </section>
 
