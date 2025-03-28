@@ -1,10 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, TimelineIcon, RefreshIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, RefreshIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
 import pack from "../package.json";
+import TinySparkLogo from "./components/TinySparkLogo.vue";
 
 const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
 
@@ -172,7 +173,7 @@ const history = computed(() => {
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
         <div class="flex flex-row place-items-center gap-2">
-            <TimelineIcon class="text-red-100"/>
+          <TinySparkLogo :size="29"/>
             tiny-spark 
         </div>
         <small class="text-sm text-gray-700">{{ version }}</small>
@@ -292,8 +293,21 @@ const history = computed(() => {
           </div>
         </div>
     </div>
-
   </main>
+  <footer class="flex flex-col justify-between place-items-center pb-12">
+    <div class="flex flex-row place-items-center gap-2 text-2xl">
+        <TinySparkLogo :size="29"/>
+          tiny-spark
+      </div>
+      <div class="flex flex-row gap-2 place-items-center">
+        <span class="text-sm">
+          MIT license - {{ new Date().getFullYear() }}
+      </span>
+        <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+          <BrandGithubFilledIcon/>
+        </a> 
+      </div>
+  </footer>
 </template>
 
 <style>
