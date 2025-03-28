@@ -265,13 +265,13 @@ const history = computed(() => {
       />
     </div>
 
-    <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mb-24 mx-auto">
-      <div>
-        NPM downloads: 
-        {{ start }} to {{ end }}
+    <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
+      <div class="pl-2 text-xs">
+        NPM downloads:
+        <strong>{{ start }}</strong> to <strong>{{ end }}</strong>
       </div>
-      <div class="p-6 bg-app-bg-grey w-full max-w-[600px] mx-auto">
-          <div class="mx-auto">
+      <div class="w-full max-w-[600px] h-[100px] mx-auto">
+          <div class="mx-auto h-full">
             <div 
               class="tiny-spark" 
               data-curve="true"
