@@ -4,6 +4,9 @@ import { BrandGithubFilledIcon, TimelineIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
+import pack from "../package.json";
+
+const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
 
 const codeConfig = ref({
   backgroundColor: 'rgb(210,210,210)',
@@ -172,7 +175,7 @@ const history = computed(() => {
             <TimelineIcon class="text-red-100"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700">v0.2.2</small>
+        <small class="text-sm text-gray-700">{{ version }}</small>
       </div>
       <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
