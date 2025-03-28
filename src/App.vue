@@ -77,7 +77,7 @@ const cssContent = ref(`
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border: 10px solid transparent;
+  border: 6px solid transparent;
   border-top-color: rgba(240,240,240, 0.9);
 }
 
@@ -311,7 +311,7 @@ const history = computed(() => {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border: 10px solid transparent;
+  border: 6px solid transparent;
   border-top-color: rgba(240,240,240, 0.9);
 }
 
