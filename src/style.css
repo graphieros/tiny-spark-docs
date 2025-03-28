@@ -10,6 +10,6 @@
     height: 100svh;
     width: 100vw;
     pointer-events: none;
-    background: radial-gradient(at top left, rgb(170,180,180), rgb(140,150,150));
+    background: radial-gradient(at top left, rgb(170,180,180), rgb(130,140,140));
     z-index: -1;
 }

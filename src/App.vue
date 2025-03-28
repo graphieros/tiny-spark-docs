@@ -6,6 +6,7 @@ import { render } from "tiny-spark";
 import "vue-hi-code/style.css"
 import pack from "../package.json";
 import TinySparkLogo from "./components/TinySparkLogo.vue";
+import Waves from "./components/Waves.vue";
 
 const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
 
@@ -171,7 +172,10 @@ const history = computed(() => {
 </script>
 
 <template>
-  <div class="bg-layer"/>
+  <div class="bg-layer">
+    <Waves gradId="grad1"/>
+
+  </div>
   <main class="w-full mx-auto max-w-[1200px] px-6">
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2 pr-6">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
