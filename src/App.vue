@@ -172,7 +172,7 @@ const history = computed(() => {
             <TimelineIcon class="text-red-100"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700">v0.2.1</small>
+        <small class="text-sm text-gray-700">v0.2.2</small>
       </div>
       <a class="p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
