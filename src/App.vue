@@ -26,7 +26,10 @@ function makeDs(n) {
 const dataset = ref(makeDs(12));
 const dates = ref('["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]')
 
-const installContent = ref(`npm i tiny-spark`);
+const installContentNPM = ref(`npm i tiny-spark`);
+const installContentYARN = ref(`yarn add tiny-spark`);
+const installContentPNPM = ref(`pnpm add tiny-spark`);
+const installContentBUN = ref(`bun add tiny-spark`);
 const setupContent = ref(`
 import { render } from "tiny-spark";
 
@@ -188,13 +191,49 @@ const history = computed(() => {
 
     <h1 class="pl-8 mb-12 max-w-[32ch] text-gray-700">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
 
-    <div class="w-full max-w-[220px] mx-auto mb-12">
-      <VueHiCode
-        :content="installContent"
-        v-bind="codeConfig"
-        language="javascript"
-      />
+    <div class="w-full flex flex-row gap-2 flex-wrap justify-center mb-12">
+      <div class="w-[200px]">
+        <VueHiCode
+          :content="installContentNPM"
+          v-bind="{
+            ...codeConfig,
+            fontSize: '0.9rem'
+            }"
+          language="javascript"
+        />
+      </div>
+      <div class="w-[225px]">
+        <VueHiCode
+          :content="installContentYARN"
+          v-bind="{
+            ...codeConfig,
+            fontSize: '0.9rem'
+            }"
+          language="javascript"
+        />
+      </div>
+      <div class="w-[225px]">
+        <VueHiCode
+          :content="installContentPNPM"
+          v-bind="{
+            ...codeConfig,
+            fontSize: '0.9rem'
+            }"
+          language="javascript"
+        />
+      </div>
+      <div class="w-[220px]">
+        <VueHiCode
+          :content="installContentBUN"
+          v-bind="{
+            ...codeConfig,
+            fontSize: '0.9rem'
+            }"
+          language="javascript"
+        />
+      </div>
     </div>
+
     <div class="w-full max-w-[600px] mx-auto mb-12">
       <VueHiCode
         :content="setupContent"
