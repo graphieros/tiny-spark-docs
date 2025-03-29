@@ -465,30 +465,30 @@ onMounted(() => {
         Play with tiny-spark on StackBlitz:
       </h2>
       <div class="w-full mx-auto flex flex-row gap-4 flex-wrap place-items-center justify-center">
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
           <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/stackblitz-starters-hvpo2cd4?file=index.html" target="_blank">
-            <BrandJavascriptIcon/>
+            <BrandJavascriptIcon class="text-[#F0DB4F]"/>
             Vanilla JS
           </a>
         </button>
   
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
           <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-fkayxq4y?file=src%2FApp.jsx" target="_blank">
-            <BrandReactIcon/>
+            <BrandReactIcon class="text-[#61DAFB]"/>
             React
           </a>
         </button>
   
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
           <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-lblowhxz?file=src%2FApp.vue" target="_blank">
-            <BrandVueIcon/>
+            <BrandVueIcon class="text-[#41B883]"/>
             Vue
           </a>
         </button>
   
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
           <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-4ezmsecw?file=src%2FApp.svelte" target="_blank">
-            <BrandSvelteIcon/>
+            <BrandSvelteIcon class="text-[#FF3E00]"/>
             Svelte
           </a>
         </button>
