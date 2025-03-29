@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, RefreshIcon, StarFilledIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -41,6 +41,42 @@ function makeDates(count) {
   return tinyFormat(dates);
 }
 
+const initConfig = ref({
+  dataCurve: 'true',
+  dataAnimation: 'true',
+  dataLineColor: '#4A4A4A',
+  dataAreaColor: '#FEE2E230',
+  dataLineThickness: 3,
+  dataPlotColor: '#2A2A2A',
+  dataPlotRadius: 3,
+  dataNumberRounding: 2,
+  dataIndicatorColor: '#8A8A8A',
+  dataIndicatorWidth: 1,
+  area: true
+});
+
+const config = ref({
+  dataCurve: 'true',
+  dataAnimation: 'true',
+  dataLineColor: '#4A4A4A',
+  dataAreaColor: '#FEE2E230',
+  dataLineThickness: 3,
+  dataPlotColor: '#2A2A2A',
+  dataPlotRadius: 3,
+  dataNumberRounding: 2,
+  dataIndicatorColor: '#8A8A8A',
+  dataIndicatorWidth: 1,
+  area: true
+});
+
+function resetConfig() {
+  config.value = {...initConfig.value}
+}
+
+function setArea(e) {
+  config.value.dataAreaColor = e.target.value === 'true' ? '#FEE2E230' : undefined
+}
+
 const dataset = ref(makeDs(12));
 const dates = ref(makeDates(12));
 
@@ -54,29 +90,30 @@ import { render } from "tiny-spark";
 // Call it immediately if your dataset is hardcoded, or call it after a fetch.
 render();
 `);
-const codeContent = ref(`
+const codeContent = computed(() => {
+  return `
 <div class="p-6 bg-app-bg-grey w-full max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize overflow-auto">
   <div class="w-full h-full mx-auto">
     <div 
       class="tiny-spark" 
-      data-curve="true"
-      data-animation="true"
-      data-line-color="#4A4A4A"
-      data-area-color="#1A1A1A10"
-      data-line-thickness="3"
+      data-curve="${config.value.dataCurve}"
+      data-animation="${config.value.dataAnimation}"
+      data-line-color="${config.value.dataLineColor}"
+      data-area-color="${config.value.dataAreaColor}"
+      data-line-thickness="${config.value.dataLineThickness}"
       data-responsive
-      data-plot-color="#2A2A2A"
-      data-plot-radius="3"
+      data-plot-color="${config.value.dataPlotColor}"
+      data-plot-radius="${config.value.dataPlotRadius}"
       data-number-locale="en-US"
-      data-number-rounding="2"
-      data-indicator-color="#8A8A8A"
-      data-indicator-width="1"
+      data-number-rounding="${config.value.dataNumberRounding}"
+      data-indicator-color="${config.value.dataIndicatorColor}"
+      data-indicator-width="${config.value.dataIndicatorWidth}"
       data-set="${dataset.value}"
       data-dates='${dates.value}'
     />
   </div>
 </div>`
-);
+})
 
 const tinyFormatContent = ref(`
 import { render, tinyFormat } from "tiny-spark";
@@ -294,18 +331,18 @@ onMounted(() => {
         <div class="w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
-            data-curve="true"
-            data-animation="true"
-            data-line-color="#4A4A4A"
-            data-area-color="#1A1A1A10"
-            data-line-thickness="3"
+            :data-curve="config.dataCurve"
+            :data-animation="config.dataAnimation"
+            :data-line-color="config.dataLineColor"
+            :data-area-color="config.dataAreaColor"
+            :data-line-thickness="config.dataLineThickness"
             data-responsive
-            data-plot-color="#2A2A2A"
-            data-plot-radius="3"
+            :data-plot-color="config.dataPlotColor"
+            :data-plot-radius="config.dataPlotRadius"
             data-number-locale="en-US"
-            data-number-rounding="2"
-            data-indicator-color="#8A8A8A"
-            data-indicator-width="1"
+            :data-number-rounding="config.dataNumberRounding"
+            :data-indicator-color="config.dataIndicatorColor"
+            :data-indicator-width="config.dataIndicatorWidth"
             :data-set="dataset"
             :data-dates="dates"
           />
@@ -322,6 +359,66 @@ onMounted(() => {
         </span>
         <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800"/> Random data</button>
       </div>
+
+      <fieldset class="border border-solid border-red-100 p-3 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
+        <legend class="px-2 flex flex-row gap-2"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
+        <label class="flex flex-col">
+          <code>data-curve</code>
+          <select v-model="config.dataCurve"><option>true</option><option>false</option></select>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-animation</code>
+          <select v-model="config.dataAnimation" @change="render()"><option>true</option><option>false</option></select>
+        </label>
+        
+        <label class="flex flex-col">
+          <code>data-line-color</code>
+          <input type="color" v-model="config.dataLineColor"/>
+        </label>
+        
+        <label class="flex flex-col">
+          <code>data-area-color</code>
+          <input type="color" v-model="config.dataAreaColor"/>
+        </label>
+
+        <label class="flex flex-col">
+          (show area)
+          <input class="accent-red-100" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-line-thickness</code>
+          <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-plot-color</code>
+          <input type="color" v-model="config.dataPlotColor"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-plot-radius</code>
+          <input type="number" v-model="config.dataPlotRadius" :min="0"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-number-rounding</code>
+          <input type="number" v-model="config.dataNumberRounding" :min="0"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-indicator-color</code>
+          <input type="color" v-model="config.dataIndicatorColor"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-indicator-width</code>
+          <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
+        </label>
+      </fieldset>
+
+      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">RESET</button>
     </section>
 
     <div class="w-full mx-auto my-12">
@@ -431,5 +528,13 @@ onMounted(() => {
 
 .tiny-spark-datapoint-circle {
   stroke: rgb(210,210,210);
+}
+
+input, select {
+  height: 1.5rem;
+  padding: 0 6px;
+  border-radius: 3px;
+  background: #FEE2E230;
+  border: 1px solid #FEE2E2;
 }
 </style>
