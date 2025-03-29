@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 import { BrandGithubFilledIcon, RefreshIcon, StarFilledIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
-import { render } from "tiny-spark";
+import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
 import pack from "../package.json";
 import TinySparkLogo from "./components/TinySparkLogo.vue";
@@ -19,13 +19,30 @@ const codeConfig = ref({
 function makeDs(n) {
   let arr = [];
   for(let i = 0; i < n; i += 1) {
-    arr.push(Math.round(Math.random()*100));
+    arr.push(Math.round(Math.random() * 10000) / 100);
   }
-  return `[${arr.toString()}]`;
+  return tinyFormat(arr);
+}
+
+function makeDates(count) {
+  const dates = [];
+  const today = new Date();
+  let month = today.getMonth();
+  let year = today.getFullYear();
+
+  for (let i = 0; i < count; i += 1) {
+    const currentMonth = (month + i) % 12;
+    const currentYear = year + Math.floor((month + i) / 12);
+    const formattedMonth = String(currentMonth + 1).padStart(2, '0');
+    const formattedYear = String(currentYear).slice(-2);
+    dates.push(`${formattedMonth}-${formattedYear}`);
+  }
+
+  return tinyFormat(dates);
 }
 
 const dataset = ref(makeDs(12));
-const dates = ref('["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]')
+const dates = ref(makeDates(12));
 
 const installContentNPM = ref(`npm i tiny-spark`);
 const installContentYARN = ref(`yarn add tiny-spark`);
@@ -60,6 +77,16 @@ const codeContent = ref(`
   </div>
 </div>`
 );
+
+const tinyFormatContent = ref(`
+import { render, tinyFormat } from "tiny-spark";
+
+const hardcodedData = [1, 2, 3, 5, 8];
+const hardcodedDates = ['01-2026', '02-2026', '03-2026', '04-2026', '05-2026'];
+
+const formattedData = tinyFormat(hardCodedData);
+const formattedDates = tinyFormat(hardcodedDates);
+`)
 
 const cssContent = ref(`
 /** the chart container (div element) */
@@ -122,6 +149,10 @@ const url_downloads = computed(() => {
 const data = ref([{ period: "", value: 0 }])
 const downloads = ref([]);
 const stars = ref(0);
+const history = ref({
+  dataset: [],
+  dates: []
+});
 
 onMounted(() => {
     fetch(url_downloads.value, {
@@ -140,6 +171,10 @@ onMounted(() => {
                     value: d.downloads
                 }
             }).slice(-90, -1);
+            history.value = {
+              dataset: tinyFormat(data.value.map(d => d.value)),
+              dates: tinyFormat(data.value.map(d => d.period))
+            }
         })
         .catch(err => {
             data.value = [{ period: "", value: 0 }]
@@ -162,12 +197,14 @@ onMounted(() => {
         })
 });
 
-const history = computed(() => {
-  return {
-    dataset: `[${data.value.map(d => d.value).toString()}]`,
-    dates: `${data.value.map(d => `"${d.period}"`).toString()}`
-  }
-})
+// const history = computed(() => {
+//   console.log(data.value)
+//   return {
+//     dataset: tinyDataset(data.value.map(d => d.value)),
+//     dates: tinyDates(data.value.map(d => d.period))
+//     // dates: `${data.value.map(d => `"${d.period}"`).toString()}`
+//   }
+// })
 
 </script>
 
@@ -312,6 +349,20 @@ const history = computed(() => {
       />
     </div>
 
+
+    <div class="w-full mx-auto my-12">
+      <h2 class="mb-6 text-xl">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
+      <VueHiCode
+        :content="tinyFormatContent"
+        v-bind="{
+          backgroundColor: '#2A2A2A',
+          copyIconColor: '#8A8A8A',
+          title: 'JS'
+        }"
+        language="javascript"
+      />
+    </div>
+
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
       <div class="pl-2 text-xs">
         NPM downloads:
@@ -334,7 +385,7 @@ const history = computed(() => {
               data-indicator-color="#8A8A8A"
               data-indicator-width="1"
               :data-set="history.dataset"
-              :data-dates="`[${history.dates}]`"
+              :data-dates="history.dates"
             />
           </div>
         </div>
