@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, RefreshIcon, SettingsIcon, StarFilledIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -360,7 +360,7 @@ onMounted(() => {
         <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800"/> Random data</button>
       </div>
 
-      <fieldset class="border border-solid border-red-100 p-3 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
+      <fieldset class="border border-solid border-red-100 p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
         <legend class="px-2 flex flex-row gap-2"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col">
           <code>data-curve</code>
@@ -459,6 +459,44 @@ onMounted(() => {
         language="javascript"
       />
     </div>
+
+    <div class="flex flex-col place-items-center justify-center w-full mx-auto mb-12">
+      <h2 class="text-xl mb-2">
+        Play with tiny-spark on StackBlitz:
+      </h2>
+      <div class="w-full mx-auto flex flex-row gap-4 flex-wrap place-items-center justify-center">
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/stackblitz-starters-hvpo2cd4?file=index.html" target="_blank">
+            <BrandJavascriptIcon/>
+            Vanilla JS
+          </a>
+        </button>
+  
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-fkayxq4y?file=src%2FApp.jsx" target="_blank">
+            <BrandReactIcon/>
+            React
+          </a>
+        </button>
+  
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-lblowhxz?file=src%2FApp.vue" target="_blank">
+            <BrandVueIcon/>
+            Vue
+          </a>
+        </button>
+  
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">
+          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-4ezmsecw?file=src%2FApp.svelte" target="_blank">
+            <BrandSvelteIcon/>
+            Svelte
+          </a>
+        </button>
+  
+      </div>
+    </div>
+
+    <hr class="mb-12 border-red-100"/>
 
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
       <div class="pl-2 text-xs">
