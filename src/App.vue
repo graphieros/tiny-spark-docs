@@ -119,11 +119,12 @@ const codeContent = computed(() => {
 const tinyFormatContent = ref(`
 import { render, tinyFormat } from "tiny-spark";
 
-const hardcodedData = [1, 2, 3, 5, 8];
-const hardcodedDates = ['01-2026', '02-2026', '03-2026', '04-2026', '05-2026'];
+const data = [1, 2, 3, 5, 8];
+const dates = ['01-2026', '02-2026', '03-2026', '04-2026', '05-2026'];
 
-const formattedData = tinyFormat(hardCodedData);
-const formattedDates = tinyFormat(hardcodedDates);
+// Formatted as strings to be passed to the component
+const formattedData = tinyFormat(data);
+const formattedDates = tinyFormat(dates);
 `)
 
 const cssContent = ref(`
