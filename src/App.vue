@@ -7,6 +7,7 @@ import "vue-hi-code/style.css"
 import pack from "../package.json";
 import TinySparkLogo from "./components/TinySparkLogo.vue";
 import Waves from "./components/Waves.vue";
+import ButtonLink from "./components/ButtonLink.vue";
 
 const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
 
@@ -234,15 +235,6 @@ onMounted(() => {
         })
 });
 
-// const history = computed(() => {
-//   console.log(data.value)
-//   return {
-//     dataset: tinyDataset(data.value.map(d => d.value)),
-//     dates: tinyDates(data.value.map(d => d.period))
-//     // dates: `${data.value.map(d => `"${d.period}"`).toString()}`
-//   }
-// })
-
 </script>
 
 <template>
@@ -465,34 +457,18 @@ onMounted(() => {
         Play with tiny-spark on StackBlitz:
       </h2>
       <div class="w-full mx-auto flex flex-row gap-4 flex-wrap place-items-center justify-center">
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
-          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/stackblitz-starters-hvpo2cd4?file=index.html" target="_blank">
-            <BrandJavascriptIcon class="text-[#F0DB4F]"/>
-            Vanilla JS
-          </a>
-        </button>
-  
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
-          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-fkayxq4y?file=src%2FApp.jsx" target="_blank">
-            <BrandReactIcon class="text-[#61DAFB]"/>
-            React
-          </a>
-        </button>
-  
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
-          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-lblowhxz?file=src%2FApp.vue" target="_blank">
-            <BrandVueIcon class="text-[#41B883]"/>
-            Vue
-          </a>
-        </button>
-  
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br text-[#CCCCCC] from-[#3A3A3A] to-[#1A1A1A] py-1 px-4 rounded hover:from-[#1A1A1A] hover:to-[#3A3A3A] hover:shadow transition-all">
-          <a class="flex flex-row place-items-center gap-1" href="https://stackblitz.com/edit/vitejs-vite-4ezmsecw?file=src%2FApp.svelte" target="_blank">
-            <BrandSvelteIcon class="text-[#FF3E00]"/>
-            Svelte
-          </a>
-        </button>
-  
+        <ButtonLink title="Vanilla JS" link="https://stackblitz.com/edit/stackblitz-starters-hvpo2cd4?file=index.html">
+          <BrandJavascriptIcon class="text-[#F0DB4F]"/>
+        </ButtonLink>
+        <ButtonLink title="React" link="https://stackblitz.com/edit/vitejs-vite-fkayxq4y?file=src%2FApp.jsx">
+          <BrandReactIcon class="text-[#61DAFB]"/>
+        </ButtonLink>
+        <ButtonLink title="Vue" link="https://stackblitz.com/edit/vitejs-vite-lblowhxz?file=src%2FApp.vue">
+          <BrandVueIcon class="text-[#41B883]"/>
+        </ButtonLink>
+        <ButtonLink title="Svelte" link="https://stackblitz.com/edit/vitejs-vite-4ezmsecw?file=src%2FApp.svelte">
+          <BrandSvelteIcon class="text-[#FF3E00]"/>
+        </ButtonLink>  
       </div>
     </div>
 
