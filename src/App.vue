@@ -88,8 +88,11 @@ const installContentBUN = ref(`bun add tiny-spark`);
 const setupContent = ref(`
 import { render } from "tiny-spark";
 
-// Call it immediately if your dataset is hardcoded, or call it after a fetch.
+// Call it immediately after the DOM is ready. If your dataset is hardcoded, or call it after a fetch.
+
 render();
+
+// You can also call render again later to re-trigger the animation (if data-animation is set to "true")
 `);
 const codeContent = computed(() => {
   return `
