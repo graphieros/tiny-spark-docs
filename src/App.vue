@@ -481,7 +481,7 @@ onMounted(() => {
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
       <div class="pl-2 text-xs">
         NPM downloads:
-        <strong>{{ start }}</strong> to <strong>{{ end }}</strong>
+        <strong>{{ start }}</strong> to <strong>{{ data.at(-1).period }}</strong>
       </div>
       <div class="w-full max-w-[600px] h-[100px] mx-auto">
           <div class="mx-auto h-full">
