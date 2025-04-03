@@ -258,7 +258,7 @@ onMounted(() => {
       <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
         <BrandGithubFilledIcon/>
         <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-            <StarFilledIcon :size="16" class="text-red-100"/> {{ stars }}
+            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars">{{ stars }}</span>
           </div>
       </a>
     </header>
@@ -518,7 +518,7 @@ onMounted(() => {
         <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
           <BrandGithubFilledIcon/>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-            <StarFilledIcon :size="16" class="text-red-100"/> {{ stars }}
+            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars">{{ stars }}</span>
           </div>
         </a> 
       </div>
