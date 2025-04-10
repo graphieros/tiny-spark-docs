@@ -50,6 +50,7 @@ const initConfig = ref({
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
+  dataHidePlotsAbove: 100,
   dataNumberRounding: 2,
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
@@ -64,6 +65,7 @@ const config = ref({
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
+  dataHidePlotsAbove: 100,
   dataNumberRounding: 2,
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
@@ -108,6 +110,7 @@ const codeContent = computed(() => {
       data-responsive
       data-plot-color="${config.value.dataPlotColor}"
       data-plot-radius="${config.value.dataPlotRadius}"
+      data-hide-plots-above="${config.value.dataHidePlotsAbove}"
       data-number-locale="en-US"
       data-number-rounding="${config.value.dataNumberRounding}"
       data-indicator-color="${config.value.dataIndicatorColor}"
@@ -174,7 +177,7 @@ const cssContent = ref(`
 }
 `)
 
-const start = ref("2025-03-26");
+const start = ref("2025-04-06");
 const lastDate = ref(new Date(Date.now()));
 
 const end = computed(() => {
@@ -335,6 +338,7 @@ onMounted(() => {
             data-responsive
             :data-plot-color="config.dataPlotColor"
             :data-plot-radius="config.dataPlotRadius"
+            :data-hide-plots-above="config.dataHidePlotsAbove"
             data-number-locale="en-US"
             :data-number-rounding="config.dataNumberRounding"
             :data-indicator-color="config.dataIndicatorColor"
@@ -396,6 +400,11 @@ onMounted(() => {
         <label class="flex flex-col">
           <code>data-plot-radius</code>
           <input type="number" v-model="config.dataPlotRadius" :min="0"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code>data-hide-plots-above</code>
+          <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
         </label>
 
         <label class="flex flex-col">
@@ -490,11 +499,12 @@ onMounted(() => {
               data-curve="true"
               data-animation="true"
               data-line-color="#4A4A4A"
-              data-area-color="#1A1A1A10"
+              data-area-color="#00FF0010"
               data-line-thickness="3"
               data-responsive
               data-plot-color="#2A2A2A"
               data-plot-radius="3"
+              data-hide-plots-above="6"
               data-number-locale="en-US"
               data-number-rounding="0"
               data-indicator-color="#8A8A8A"
