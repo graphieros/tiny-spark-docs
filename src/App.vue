@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, RefreshIcon, SettingsIcon, StarFilledIcon } from "vue-tabler-icons";
+import { BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -8,6 +8,40 @@ import pack from "../package.json";
 import TinySparkLogo from "./components/TinySparkLogo.vue";
 import Waves from "./components/Waves.vue";
 import ButtonLink from "./components/ButtonLink.vue";
+
+const isDarkMode = ref(false);
+
+onMounted(() => {
+  if(!localStorage.theme) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  } else {
+    setTheme(localStorage.theme);
+  }
+})
+
+function setTheme(theme) {
+  if (localStorage.theme) {
+    localStorage.theme = theme;
+  } else {
+    localStorage.setItem('theme', theme);
+  }
+  isDarkMode.value = localStorage.theme === 'dark';
+  if (isDarkMode.value) {
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.classList.add('light');
+  }
+}
+
+function toggleTheme() {
+  setTheme(isDarkMode.value ? 'light' : 'dark');
+}
 
 const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
 
@@ -257,21 +291,28 @@ onMounted(() => {
   <main class="w-full mx-auto max-w-[1200px] px-6">
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2 pr-6">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
-        <div class="flex flex-row place-items-center gap-2">
+        <div class="flex flex-row place-items-center gap-2 text-black dark:text-red-300">
           <TinySparkLogo :size="29"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700 bg-red-100 px-2 rounded-full -translate-y-1">{{ version }}</small>
+        <small class="text-sm text-gray-700 bg-red-100 dark:bg-transparent dark:text-gray-500 dark:border dark:border-gray-700 px-2 rounded-full -translate-y-1">{{ version }}</small>
       </div>
-      <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
-        <BrandGithubFilledIcon/>
-        <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars">{{ stars }}</span>
-          </div>
-      </a>
+      <div class="flex flex-row place-items-center gap-4">
+        <button @click="toggleTheme">
+          <SunIcon v-if="isDarkMode" class="text-red-300"/>
+          <MoonIcon v-else/>
+        </button>
+
+        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+          <BrandGithubFilledIcon/>
+          <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
+              <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars" class="dark:text-red-300">{{ stars }}</span>
+            </div>
+        </a>
+      </div>
     </header>
 
-    <h1 class="pl-8 mb-12 max-w-[32ch] text-gray-700">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
+    <h1 class="pl-8 mb-12 max-w-[32ch] text-gray-700 dark:text-gray-500">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
 
     <div class="w-full flex flex-row gap-2 flex-wrap justify-center mb-12">
       <div class="w-[200px]">
@@ -279,6 +320,9 @@ onMounted(() => {
           :content="installContentNPM"
           v-bind="{
             ...codeConfig,
+            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -289,6 +333,9 @@ onMounted(() => {
           :content="installContentYARN"
           v-bind="{
             ...codeConfig,
+            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -299,6 +346,9 @@ onMounted(() => {
           :content="installContentPNPM"
           v-bind="{
             ...codeConfig,
+            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -309,6 +359,9 @@ onMounted(() => {
           :content="installContentBUN"
           v-bind="{
             ...codeConfig,
+            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -352,83 +405,83 @@ onMounted(() => {
             :data-dates="dates"
           />
         </div>
-        <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1">
+        <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-red-300">
           resize
         </div>
         <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-red-100 pointer-events-none select-none"/>
       </div>
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
-        <span>
+        <span class="dark:text-gray-400">
           The chart is <strong>responsive</strong>. Try resizing the container.<br>
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800"/> Random data</button>
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800 dark:text-red-300"/> Random data</button>
       </div>
 
-      <fieldset class="border border-solid border-red-100 p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
-        <legend class="px-2 flex flex-row gap-2"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
+      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
+        <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col">
-          <code>data-curve</code>
+          <code class="dark:text-red-200">data-curve</code>
           <select v-model="config.dataCurve"><option>true</option><option>false</option></select>
         </label>
 
         <label class="flex flex-col">
-          <code>data-animation</code>
+          <code class="dark:text-red-200">data-animation</code>
           <select v-model="config.dataAnimation" @change="render()"><option>true</option><option>false</option></select>
         </label>
         
         <label class="flex flex-col">
-          <code>data-line-color</code>
+          <code class="dark:text-red-200">data-line-color</code>
           <input type="color" v-model="config.dataLineColor"/>
         </label>
         
         <label class="flex flex-col">
-          <code>data-area-color</code>
+          <code class="dark:text-red-200">data-area-color</code>
           <input type="color" v-model="config.dataAreaColor"/>
         </label>
 
-        <label class="flex flex-col">
+        <label class="flex flex-col dark:text-red-200">
           (show area)
           <input class="accent-red-100" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-line-thickness</code>
+          <code class="dark:text-red-200">data-line-thickness</code>
           <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-plot-color</code>
+          <code class="dark:text-red-200">data-plot-color</code>
           <input type="color" v-model="config.dataPlotColor"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-plot-radius</code>
+          <code class="dark:text-red-200">data-plot-radius</code>
           <input type="number" v-model="config.dataPlotRadius" :min="0"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-hide-plots-above</code>
+          <code class="dark:text-red-200">data-hide-plots-above</code>
           <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-number-rounding</code>
+          <code class="dark:text-red-200">data-number-rounding</code>
           <input type="number" v-model="config.dataNumberRounding" :min="0"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-indicator-color</code>
+          <code class="dark:text-red-200">data-indicator-color</code>
           <input type="color" v-model="config.dataIndicatorColor"/>
         </label>
 
         <label class="flex flex-col">
-          <code>data-indicator-width</code>
+          <code class="dark:text-red-200">data-indicator-width</code>
           <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
         </label>
       </fieldset>
 
-      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey hover:shadow transition-all">RESET</button>
+      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300">RESET</button>
     </section>
 
     <div class="w-full mx-auto my-12">
@@ -444,7 +497,7 @@ onMounted(() => {
     </div>
 
     <div class="w-full mx-auto my-12">
-      <h2 class="mb-6 text-xl">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
+      <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
       <VueHiCode
         :content="cssContent"
         v-bind="{
@@ -458,7 +511,7 @@ onMounted(() => {
 
 
     <div class="w-full mx-auto my-12">
-      <h2 class="mb-6 text-xl">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
+      <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
       <VueHiCode
         :content="tinyFormatContent"
         v-bind="{
@@ -471,7 +524,7 @@ onMounted(() => {
     </div>
 
     <div class="flex flex-col place-items-center justify-center w-full mx-auto mb-12">
-      <h2 class="text-xl mb-2">
+      <h2 class="text-xl mb-2 dark:text-gray-400">
         Play with tiny-spark on StackBlitz:
       </h2>
       <div class="w-full mx-auto flex flex-row gap-4 flex-wrap place-items-center justify-center">
@@ -490,10 +543,10 @@ onMounted(() => {
       </div>
     </div>
 
-    <hr class="mb-12 border-red-100"/>
+    <hr class="mb-12 border-red-100 dark:border-gray-700"/>
 
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
-      <div class="pl-2 text-xs">
+      <div class="pl-2 text-xs dark:text-gray-400">
         NPM downloads:
         <strong>{{ start }}</strong> to <strong>{{ data.at(-1).period }}</strong>
       </div>
@@ -504,7 +557,7 @@ onMounted(() => {
               data-curve="true"
               data-animation="true"
               data-line-color="#4A4A4A"
-              data-area-color="#00FF0010"
+              :data-area-color="isDarkMode ? '#FF000005' : '#00FF0010'"
               data-line-thickness="3"
               data-responsive
               data-plot-color="#2A2A2A"
@@ -522,18 +575,18 @@ onMounted(() => {
     </div>
   </main>
   <footer class="flex flex-col justify-between place-items-center pb-12">
-    <div class="flex flex-row place-items-center gap-2 text-2xl">
+    <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-red-300">
         <TinySparkLogo :size="29"/>
           tiny-spark
       </div>
       <div class="flex flex-row gap-2 place-items-center">
-        <span class="text-sm">
+        <span class="text-sm dark:text-gray-600">
           MIT license - {{ new Date().getFullYear() }}
       </span>
         <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
           <BrandGithubFilledIcon/>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars">{{ stars }}</span>
+            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars" class="dark:text-red-300">{{ stars }}</span>
           </div>
         </a> 
       </div>
@@ -567,7 +620,16 @@ input, select {
   height: 1.5rem;
   padding: 0 6px;
   border-radius: 3px;
+}
+
+html.light input,select{
   background: #FEE2E230;
   border: 1px solid #FEE2E2;
+}
+
+html.dark input,select{
+  background: #FEE2E230;
+  border: 1px solid #FEE2E250;
+  color: #FEE2E2;
 }
 </style>

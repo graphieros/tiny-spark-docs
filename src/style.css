@@ -10,6 +10,14 @@
     height: 100svh;
     width: 100vw;
     pointer-events: none;
-    background: radial-gradient(at top left, rgb(170,180,180), rgb(140,130,130));
     z-index: -1;
+    transition: all 0.2s ease-in-out;
+}
+
+html.light .bg-layer {
+    background: radial-gradient(at top left, rgb(170,180,180), rgb(140,130,130));
+}
+
+html.dark .bg-layer {
+    background: radial-gradient(at top left, rgb(20,30,30), rgb(25,20,20));
 }
