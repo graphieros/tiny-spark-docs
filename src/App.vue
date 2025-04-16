@@ -88,7 +88,10 @@ const initConfig = ref({
   dataNumberRounding: 2,
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
-  area: true
+  area: true,
+  dataShowLastValue: 'true',
+  dataLastValueFontSize: 12,
+  dataLastValueColor: '#8A8A8A'
 });
 
 const config = ref({
@@ -103,7 +106,10 @@ const config = ref({
   dataNumberRounding: 2,
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
-  area: true
+  area: true,
+  dataShowLastValue: 'true',
+  dataLastValueFontSize: 12,
+  dataLastValueColor: '#8A8A8A'
 });
 
 function resetConfig() {
@@ -141,12 +147,14 @@ const codeContent = computed(() => {
   <div class="w-full h-full mx-auto">
     <div 
       class="tiny-spark" 
+      data-responsive
+      data-set="${dataset.value}"
+      data-dates='${dates.value}'
       data-curve="${config.value.dataCurve}"
       data-animation="${config.value.dataAnimation}"
       data-line-color="${config.value.dataLineColor}"
       data-area-color="${config.value.dataAreaColor}"
       data-line-thickness="${config.value.dataLineThickness}"
-      data-responsive
       data-plot-color="${config.value.dataPlotColor}"
       data-plot-radius="${config.value.dataPlotRadius}"
       data-hide-plots-above="${config.value.dataHidePlotsAbove}"
@@ -154,8 +162,9 @@ const codeContent = computed(() => {
       data-number-rounding="${config.value.dataNumberRounding}"
       data-indicator-color="${config.value.dataIndicatorColor}"
       data-indicator-width="${config.value.dataIndicatorWidth}"
-      data-set="${dataset.value}"
-      data-dates='${dates.value}'
+      data-show-last-value="${config.value.dataShowLastValue}"
+      data-last-value-font-size="${config.value.dataLastValueFontSize}"
+      data-last-value-color="${config.value.dataLastValueColor}"
     />
   </div>
 </div>`
@@ -403,6 +412,9 @@ onMounted(() => {
             :data-indicator-width="config.dataIndicatorWidth"
             :data-set="dataset"
             :data-dates="dates"
+            :data-show-last-value="config.dataShowLastValue"
+            :data-last-value-font-size="config.dataLastValueFontSize"
+            :data-last-value-color="config.dataLastValueColor"
           />
         </div>
         <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-red-300">
@@ -478,6 +490,21 @@ onMounted(() => {
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-indicator-width</code>
           <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-red-200">data-show-last-value</code>
+          <select v-model="config.dataShowLastValue"><option>true</option><option>false</option></select>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-red-200">data-last-value-font-size</code>
+          <input type="number" v-model="config.dataLastValueFontSize" :min="6"/>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-red-200">data-last-value-color</code>
+          <input type="color" v-model="config.dataLastValueColor"/>
         </label>
       </fieldset>
 
@@ -569,6 +596,8 @@ onMounted(() => {
               data-indicator-width="1"
               :data-set="history.dataset"
               :data-dates="history.dates"
+              data-show-last-value="true"
+              :data-last-value-color="isDarkMode ? '#FCA5A5' : '#4A4A4A'"
             />
           </div>
         </div>
