@@ -385,7 +385,7 @@ onMounted(() => {
 
     <section>
       <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 dark:border-gray-600 border-dashed overflow-auto">
-        <div class="w-full h-full mx-auto">
+        <div class="showcase w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
             :data-curve="config.dataCurve"
@@ -546,7 +546,7 @@ onMounted(() => {
     <hr class="mb-12 border-red-100 dark:border-gray-700"/>
 
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
-      <div class="pl-2 text-xs dark:text-gray-400">
+      <div class="pl-2 pb-4 text-xs dark:text-gray-400">
         NPM downloads:
         <strong>{{ start }}</strong> to <strong>{{ data.at(-1).period }}</strong>
       </div>
@@ -556,16 +556,16 @@ onMounted(() => {
               class="tiny-spark" 
               data-curve="true"
               data-animation="true"
-              data-line-color="#4A4A4A"
-              :data-area-color="isDarkMode ? '#FF000005' : '#00FF0010'"
-              data-line-thickness="3"
+              :data-line-color="isDarkMode ? '#FCA5A5' : '#4A4A4A'"
+              :data-area-color="isDarkMode ? '#FCA5A510' : '#00FF0010'"
+              data-line-thickness="2"
               data-responsive
-              data-plot-color="#2A2A2A"
-              data-plot-radius="3"
+              :data-plot-color="isDarkMode ? 'rgb(170,180,180)' : '#2A2A2A'"
+              data-plot-radius="6"
               data-hide-plots-above="6"
               data-number-locale="en-US"
               data-number-rounding="0"
-              data-indicator-color="#8A8A8A"
+              :data-indicator-color="isDarkMode ? '#FCA5A540' : '#8A8A8A'"
               data-indicator-width="1"
               :data-set="history.dataset"
               :data-dates="history.dates"
@@ -612,7 +612,19 @@ onMounted(() => {
   border-top-color: rgba(170,180,180, 0.9);
 }
 
-.tiny-spark-datapoint-circle {
+html.light .tiny-spark-datapoint-circle {
+  stroke: rgb(210,210,210);
+}
+
+html.dark .tiny-spark-datapoint-circle {
+  stroke: #1A1A1A;
+}
+
+html.dark .showcase .tiny-spark-datapoint-circle {
+  stroke: #8A8A8A;
+}
+
+html.light .showcase .tiny-spark-datapoint-circle {
   stroke: rgb(210,210,210);
 }
 
