@@ -384,7 +384,7 @@ onMounted(() => {
     </div>
 
     <section>
-      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 border-dashed overflow-auto">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 dark:border-gray-600 border-dashed overflow-auto">
         <div class="w-full h-full mx-auto">
           <div 
             class="tiny-spark" 
@@ -408,7 +408,7 @@ onMounted(() => {
         <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-red-300">
           resize
         </div>
-        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-red-100 pointer-events-none select-none"/>
+        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-red-100 dark:bg-red-300 pointer-events-none select-none"/>
       </div>
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
         <span class="dark:text-gray-400">
@@ -622,12 +622,24 @@ input, select {
   border-radius: 3px;
 }
 
-html.light input,select{
+html.light select{
   background: #FEE2E230;
   border: 1px solid #FEE2E2;
+  color: #1A1A1A;
 }
 
-html.dark input,select{
+html.light input{
+  background: #FEE2E230;
+  border: 1px solid #FEE2E2;
+  color: #1A1A1A;
+}
+
+html.dark select{
+  background: #FEE2E230;
+  border: 1px solid #FEE2E250;
+  color: #FEE2E2;
+}
+html.dark input{
   background: #FEE2E230;
   border: 1px solid #FEE2E250;
   color: #FEE2E2;
