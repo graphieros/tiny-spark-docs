@@ -542,7 +542,7 @@ onMounted(() => {
 
 <style>
 .tiny-spark-tooltip {
-  background: rgba(240,240,240, 0.9);
+  background: radial-gradient(at top left, rgba(170,180,180, 0.9));
   border-radius: 2px;
   box-shadow: 0 6px 3px -3px rgba(0,0,0,0.2);
   padding: 0 8px;
@@ -556,7 +556,7 @@ onMounted(() => {
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-top-color: rgba(240,240,240, 0.9);
+  border-top-color: rgba(170,180,180, 0.9);
 }
 
 .tiny-spark-datapoint-circle {
