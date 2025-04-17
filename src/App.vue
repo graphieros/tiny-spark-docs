@@ -8,6 +8,7 @@ import pack from "../package.json";
 import TinySparkLogo from "./components/TinySparkLogo.vue";
 import Waves from "./components/Waves.vue";
 import ButtonLink from "./components/ButtonLink.vue";
+import Tooltip from "./components/Tooltip.vue";
 
 const isDarkMode = ref(false);
 
@@ -295,6 +296,21 @@ onMounted(() => {
         })
 });
 
+const dataCurve = ref(null);
+const dataAnimation = ref(null);
+const dataLineColor = ref(null);
+const dataAreaColor = ref(null);
+const dataLineThickness = ref(null);
+const dataPlotColor = ref(null);
+const dataPlotRadius = ref(null);
+const dataHidePlotsAbove = ref(null);
+const dataNumberRounding = ref(null);
+const dataIndicatorColor = ref(null);
+const dataIndicatorWidth = ref(null);
+const dataShowLastValue = ref(null);
+const dataLastValueFontSize = ref(null);
+const dataLastValueColor = ref(null);
+
 </script>
 
 <template>
@@ -437,80 +453,122 @@ onMounted(() => {
 
       <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
         <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
-        <label class="flex flex-col">
+        <label class="flex flex-col" ref="dataCurve">
           <code class="dark:text-red-200">data-curve</code>
           <select v-model="config.dataCurve"><option>true</option><option>false</option></select>
         </label>
+        <Tooltip :target="dataCurve">
+            Show the line as a curve (spline)
+        </Tooltip>
 
-        <label class="flex flex-col">
+        <label class="flex flex-col" ref="dataAnimation">
           <code class="dark:text-red-200">data-animation</code>
           <select v-model="config.dataAnimation" @change="render()"><option>true</option><option>false</option></select>
         </label>
+        <Tooltip :target="dataAnimation">
+            Animate the chart on load
+        </Tooltip>
         
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-line-color</code>
-          <input type="color" v-model="config.dataLineColor"/>
+          <input type="color" v-model="config.dataLineColor" ref="dataLineColor"/>
         </label>
+        <Tooltip :target="dataLineColor">
+            Set the color of the line
+        </Tooltip>
         
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-area-color</code>
-          <input type="color" v-model="config.dataAreaColor"/>
+          <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
         </label>
+        <Tooltip :target="dataAreaColor">
+            Set the color of the area
+        </Tooltip>
 
         <label class="flex flex-col dark:text-red-200">
           (show area)
           <input class="accent-red-100" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
         </label>
 
-        <label class="flex flex-col">
+        <label class="flex flex-col" ref="dataLineThickness">
           <code class="dark:text-red-200">data-line-thickness</code>
           <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
         </label>
+        <Tooltip :target="dataLineThickness">
+            Set the thickness of the line (stroke width)
+        </Tooltip>
 
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-plot-color</code>
-          <input type="color" v-model="config.dataPlotColor"/>
+          <input type="color" v-model="config.dataPlotColor" ref="dataPlotColor"/>
         </label>
+        <Tooltip :target="dataPlotColor">
+            Set the fill color of datapoint circles. To change the stroke color, use css (target the .tiny-spark-datapoint-circle css class)
+        </Tooltip>
 
-        <label class="flex flex-col">
+        <label class="flex flex-col" ref="dataPlotRadius">
           <code class="dark:text-red-200">data-plot-radius</code>
           <input type="number" v-model="config.dataPlotRadius" :min="0"/>
         </label>
+        <Tooltip :target="dataPlotRadius">
+            Set the radius of datapoint circles
+        </Tooltip>
 
-        <label class="flex flex-col">
+        <label class="flex flex-col" ref="dataHidePlotsAbove">
           <code class="dark:text-red-200">data-hide-plots-above</code>
           <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
         </label>
-
-        <label class="flex flex-col">
+        <Tooltip :target="dataHidePlotsAbove">
+            Hide datapoint circles when the number of datapoints exceeds this number
+        </Tooltip>
+        
+        <label class="flex flex-col" ref="dataNumberRounding">
           <code class="dark:text-red-200">data-number-rounding</code>
           <input type="number" v-model="config.dataNumberRounding" :min="0"/>
         </label>
-
+        <Tooltip :target="dataNumberRounding">
+            Set the number of decimals for data labels
+        </Tooltip>
+        
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-indicator-color</code>
-          <input type="color" v-model="config.dataIndicatorColor"/>
+          <input type="color" v-model="config.dataIndicatorColor" ref="dataIndicatorColor"/>
         </label>
-
-        <label class="flex flex-col">
+        <Tooltip :target="dataIndicatorColor">
+            Set the stroke color of the indicator
+        </Tooltip>
+        
+        <label class="flex flex-col" ref="dataIndicatorWidth">
           <code class="dark:text-red-200">data-indicator-width</code>
           <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
         </label>
-
-        <label class="flex flex-col">
+        <Tooltip :target="dataIndicatorWidth">
+            Set the stroke width of the indicator
+        </Tooltip>
+        
+        <label class="flex flex-col" ref="dataShowLastValue">
           <code class="dark:text-red-200">data-show-last-value</code>
           <select v-model="config.dataShowLastValue"><option>true</option><option>false</option></select>
         </label>
-
-        <label class="flex flex-col">
+        <Tooltip :target="dataShowLastValue">
+            Show a data label for the last value
+        </Tooltip>
+        
+        <label class="flex flex-col" ref="dataLastValueFontSize">
           <code class="dark:text-red-200">data-last-value-font-size</code>
           <input type="number" v-model="config.dataLastValueFontSize" :min="6"/>
         </label>
-
+        <Tooltip :target="dataLastValueFontSize">
+            Set the font size of the last value data label
+        </Tooltip>
+        
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-last-value-color</code>
-          <input type="color" v-model="config.dataLastValueColor"/>
+          <input type="color" v-model="config.dataLastValueColor" ref="dataLastValueColor"/>
         </label>
+        <Tooltip :target="dataLastValueColor">
+            Set the text color of the last value data label
+        </Tooltip>
       </fieldset>
 
       <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300">RESET</button>
