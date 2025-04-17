@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from "vue";
-import { BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
+import { AnalyzeFilledIcon, BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -432,7 +432,7 @@ onMounted(() => {
           The chart is <strong>responsive</strong>. Try resizing the container.<br>
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><RefreshIcon class="text-gray-800 dark:text-red-300"/> Random data</button>
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-red-300 animate-spin"/> Random data</button>
       </div>
 
       <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
