@@ -324,6 +324,26 @@ const dataShowLastValue = ref(null);
 const dataLastValueFontSize = ref(null);
 const dataLastValueColor = ref(null);
 
+const snippetsConfig = computed(() => {
+  return {
+    withLineNumbers: false,
+    backgroundColor: 'transparent',
+    baseTextColor: isDarkMode.value ? '#CCCCCC' : '#2A2A2A',
+    copyIconColor: isDarkMode.value ? '#CCCCCC' : '#3A3A3A',
+    colorFunction: isDarkMode.value ? '#DCDCAA' : '#2f74ad',
+    colorVariableKeyword: isDarkMode.value ? '#559AD3' : 'rgb(161, 82, 152)',
+    colorKeywords: isDarkMode.value ? '#B37BAE' : 'rgb(161, 82, 152)',
+    colorString: isDarkMode.value ? '#CD9077' : '#3d7042',
+    colorNumber: isDarkMode.value ? '#AEC6A1' : 'rgb(149, 116, 42)',
+    colorBrackets: isDarkMode.value ? '#559AD3' : '#2A2A2A',
+    colorPunctuation: isDarkMode.value ? '#E1E5E8' : '#3A3A3A',
+    colorParenthesis: isDarkMode.value ? '#8A8A8A' : '#3A3A3A',
+    colorTitle: isDarkMode.value ? '#CCCCCC' : '#1A1A1A',
+    colorHtmlTag: isDarkMode.value ? '#559AD3' : '#2f74ad',
+    colorCssSelector: isDarkMode.value ? '#D7BA7D' : '#a1864c'
+  }
+})
+
 </script>
 
 <template>
@@ -363,9 +383,9 @@ const dataLastValueColor = ref(null);
           :content="installContentNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
+            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -377,9 +397,9 @@ const dataLastValueColor = ref(null);
           :content="installContentYARN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
+            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -391,9 +411,9 @@ const dataLastValueColor = ref(null);
           :content="installContentPNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
+            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -405,9 +425,9 @@ const dataLastValueColor = ref(null);
           :content="installContentBUN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : 'rgb(210,210,210)',
+            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#5A5A5A' : '#8A8A8A',
+            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -416,14 +436,11 @@ const dataLastValueColor = ref(null);
       </div>
     </div>
 
-    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
+    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
       <VueHiCode
         :content="setupContent"
         v-bind="{
-          ...codeConfig,
-          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
-          copyIconColor: '#8A8A8A',
-          baseTextColor: '#CCCCCC',
+          ...snippetsConfig,
           title: 'JS'
         }"
         language="javascript"
@@ -469,7 +486,7 @@ const dataLastValueColor = ref(null);
         <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-red-300 animate-spin"/> Random data</button>
       </div>
 
-      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20]">
+      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed">
         <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col" ref="dataCurve">
           <code class="dark:text-red-200">data-curve</code>
@@ -597,12 +614,11 @@ const dataLastValueColor = ref(null);
       Except for <span class="border text-sm py-1 px-2 rounded-full"><code>data-set</code></span> all data-attributes are optional.<br>
       Dynamic change in data-attributes will automatically re-render the chart.
     </h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
       <VueHiCode
         :content="codeContent"
         v-bind="{
-          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
-          copyIconColor: '#8A8A8A',
+          ...snippetsConfig,
           title: 'HTML'
         }"
         language="html"
@@ -611,12 +627,11 @@ const dataLastValueColor = ref(null);
     </div>
 
     <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
       <VueHiCode
         :content="cssContent"
         v-bind="{
-          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
-          copyIconColor: '#8A8A8A',
+          ...snippetsConfig,
           title: 'CSS'
         }"
         language="css"
@@ -626,12 +641,11 @@ const dataLastValueColor = ref(null);
 
 
     <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
       <VueHiCode
         :content="tinyFormatContent"
         v-bind="{
-          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
-          copyIconColor: '#8A8A8A',
+          ...snippetsConfig,
           title: 'JS'
         }"
         language="javascript"
@@ -703,7 +717,7 @@ const dataLastValueColor = ref(null);
         transform: 'translate(-50%, -50%)'
       }"
     >
-      <CheckIcon class="text-red-300" size="100"/>
+      <CheckIcon class="text-[#7A6A6A] dark:text-[#FCA5A5]" size="100"/>
     </div>
   </transition>
 
@@ -802,5 +816,10 @@ html.dark input{
 .copy-leave-to {
   transform: translate(-50%, -50%) scale(2,2) !important;
   opacity: 0;
+}
+
+.glassed {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 </style>
