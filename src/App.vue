@@ -383,12 +383,12 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="w-full max-w-[600px] mx-auto mb-12">
+    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
       <VueHiCode
         :content="setupContent"
         v-bind="{
           ...codeConfig,
-          backgroundColor: '#2A2A2A',
+          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
           copyIconColor: '#8A8A8A',
           baseTextColor: '#CCCCCC',
           title: 'JS'
@@ -516,11 +516,11 @@ onMounted(() => {
       <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300">RESET</button>
     </section>
 
-    <div class="w-full mx-auto my-12">
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
       <VueHiCode
         :content="codeContent"
         v-bind="{
-          backgroundColor: '#2A2A2A',
+          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
           copyIconColor: '#8A8A8A',
           title: 'HTML'
         }"
@@ -528,12 +528,12 @@ onMounted(() => {
       />
     </div>
 
-    <div class="w-full mx-auto my-12">
-      <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
+    <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
       <VueHiCode
         :content="cssContent"
         v-bind="{
-          backgroundColor: '#2A2A2A',
+          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
           copyIconColor: '#8A8A8A',
           title: 'CSS'
         }"
@@ -542,12 +542,12 @@ onMounted(() => {
     </div>
 
 
-    <div class="w-full mx-auto my-12">
-      <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
+    <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
+    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
       <VueHiCode
         :content="tinyFormatContent"
         v-bind="{
-          backgroundColor: '#2A2A2A',
+          backgroundColor: isDarkMode ? 'transparent' : '#2A2A2A',
           copyIconColor: '#8A8A8A',
           title: 'JS'
         }"
