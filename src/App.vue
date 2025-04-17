@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from "vue";
-import { AnalyzeFilledIcon, BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
+import { AnalyzeFilledIcon, BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -11,6 +11,19 @@ import ButtonLink from "./components/ButtonLink.vue";
 import Tooltip from "./components/Tooltip.vue";
 
 const isDarkMode = ref(false);
+const isCopy = ref(false);
+
+const to = ref(null);
+
+function triggerCopy() {
+  isCopy.value = true;
+  if (to.value) {
+    clearTimeout(to.value)
+  }
+  to.value = setTimeout(() => {
+    isCopy.value = false;
+  }, 1000)
+}
 
 onMounted(() => {
   if(!localStorage.theme) {
@@ -356,6 +369,7 @@ const dataLastValueColor = ref(null);
             fontSize: '0.9rem'
             }"
           language="javascript"
+          @copy="triggerCopy"
         />
       </div>
       <div class="w-[225px]">
@@ -369,6 +383,7 @@ const dataLastValueColor = ref(null);
             fontSize: '0.9rem'
             }"
           language="javascript"
+          @copy="triggerCopy"
         />
       </div>
       <div class="w-[225px]">
@@ -382,6 +397,7 @@ const dataLastValueColor = ref(null);
             fontSize: '0.9rem'
             }"
           language="javascript"
+          @copy="triggerCopy"
         />
       </div>
       <div class="w-[220px]">
@@ -395,6 +411,7 @@ const dataLastValueColor = ref(null);
             fontSize: '0.9rem'
             }"
           language="javascript"
+          @copy="triggerCopy"
         />
       </div>
     </div>
@@ -410,6 +427,7 @@ const dataLastValueColor = ref(null);
           title: 'JS'
         }"
         language="javascript"
+        @copy="triggerCopy"
       />
     </div>
 
@@ -588,6 +606,7 @@ const dataLastValueColor = ref(null);
           title: 'HTML'
         }"
         language="html"
+        @copy="triggerCopy"
       />
     </div>
 
@@ -601,6 +620,7 @@ const dataLastValueColor = ref(null);
           title: 'CSS'
         }"
         language="css"
+        @copy="triggerCopy"
       />
     </div>
 
@@ -615,6 +635,7 @@ const dataLastValueColor = ref(null);
           title: 'JS'
         }"
         language="javascript"
+        @copy="triggerCopy"
       />
     </div>
 
@@ -671,6 +692,21 @@ const dataLastValueColor = ref(null);
         </div>
     </div>
   </main>
+
+  <transition name="copy">
+    <div 
+      v-if="isCopy"
+      :style="{
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)'
+      }"
+    >
+      <CheckIcon class="text-red-300" size="100"/>
+    </div>
+  </transition>
+
   <footer class="flex flex-col justify-between place-items-center pb-12">
     <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-red-300">
         <TinySparkLogo :size="29"/>
@@ -752,5 +788,19 @@ html.dark input{
   background: #FEE2E230;
   border: 1px solid #FEE2E250;
   color: #FEE2E2;
+}
+
+.copy-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.copy-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.copy-enter-from,
+.copy-leave-to {
+  transform: translate(-50%, -50%) scale(2,2) !important;
+  opacity: 0;
 }
 </style>
