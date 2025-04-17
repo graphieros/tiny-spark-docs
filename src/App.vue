@@ -516,6 +516,11 @@ onMounted(() => {
       <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300">RESET</button>
     </section>
 
+    <h2 class="mb-6 text-xl dark:text-gray-400 mt-12">
+      To add a chart on your application, create a div with a <strong>"tiny-spark"</strong> class and <strong>data-attributes</strong>.<br>
+      Except for <span class="border text-sm py-1 px-2 rounded-full"><code>data-set</code></span> all data-attributes are optional.<br>
+      Dynamic change in data-attributes will automatically re-render the chart.
+    </h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 dark:rounded-md bg-gradient-to-r from-[#FFFFFF10] to-transparent p-6">
       <VueHiCode
         :content="codeContent"
