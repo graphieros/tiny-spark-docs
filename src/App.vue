@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 import { BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
@@ -41,6 +41,9 @@ function setTheme(theme) {
 
 function toggleTheme() {
   setTheme(isDarkMode.value ? 'light' : 'dark');
+  initConfig.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
+  config.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
+  nextTick(render);
 }
 
 const version = computed(() => `v${pack.dependencies['tiny-spark'].replace('^', '')}`);
@@ -91,7 +94,7 @@ const initConfig = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: '#8A8A8A'
+  dataLastValueColor: isDarkMode.value ? '#8A8A8A' : '#1A1A1A'
 });
 
 const config = ref({
@@ -109,7 +112,7 @@ const config = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: '#8A8A8A'
+  dataLastValueColor: isDarkMode.value ? '#8A8A8A' : '#1A1A1A'
 });
 
 function resetConfig() {
@@ -272,6 +275,8 @@ onMounted(() => {
         .catch(err => {
             data.value = [{ period: "", value: 0 }]
         }).finally(() => {
+          initConfig.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
+          config.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
           render();
         })
 
