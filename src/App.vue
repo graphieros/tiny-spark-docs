@@ -97,7 +97,7 @@ const initConfig = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#FEE2E230',
+  dataAreaColor: '#FCA5A520',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -115,7 +115,7 @@ const config = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#FEE2E230',
+  dataAreaColor: '#FCA5A520',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -134,7 +134,7 @@ function resetConfig() {
 }
 
 function setArea(e) {
-  config.value.dataAreaColor = e.target.value === 'true' ? '#FEE2E230' : undefined
+  config.value.dataAreaColor = e.target.value === 'true' ? '#FCA5A520' : undefined
 }
 
 const dataset = ref(makeDs(12));
