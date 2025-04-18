@@ -2,7 +2,7 @@
     <div class="custom-select" ref="selectRef">
         <button type="button" class="select-trigger" @click="toggle" :aria-expanded="isOpen" ref="triggerButton">
             <span class="selected-value">{{ selectedLabel }}</span>
-            <span class="arrow" />
+            <ChevronDownIcon class="arrow dark:text-red-200" :size="16" :data-open="isOpen" />
         </button>
         <transition name="fade">
             <ul v-if="isOpen" class="options-list">
@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount, PropType } from "vue";
 import Tooltip from "./Tooltip.vue";
-import { CheckIcon } from "vue-tabler-icons";
+import { CheckIcon, ChevronDownIcon } from "vue-tabler-icons";
 
 type Option = string | number;
 
@@ -98,18 +98,11 @@ html.dark .select-trigger {
 }
 
 .arrow {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
+    transition: transform 0.2s;
 }
 
-html.light .arrow {
-    border-top: 5px solid #333;
-}
-
-html.dark .arrow {
-    border-top: 5px solid #FEE2E2;
+.arrow[data-open="true"] {
+    transform: rotate(180deg);
 }
 
 .options-list {
