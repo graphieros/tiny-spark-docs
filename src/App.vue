@@ -9,6 +9,7 @@ import TinySparkLogo from "./components/TinySparkLogo.vue";
 import Waves from "./components/Waves.vue";
 import ButtonLink from "./components/ButtonLink.vue";
 import Tooltip from "./components/Tooltip.vue";
+import BaseSelect from "./components/BaseSelect.vue";
 
 const isDarkMode = ref(false);
 const isCopy = ref(false);
@@ -344,6 +345,10 @@ const snippetsConfig = computed(() => {
   }
 })
 
+function renderNext() {
+  nextTick(render)
+}
+
 </script>
 
 <template>
@@ -490,19 +495,36 @@ const snippetsConfig = computed(() => {
         <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col" ref="dataCurve">
           <code class="dark:text-red-200">data-curve</code>
-          <select v-model="config.dataCurve"><option>true</option><option>false</option></select>
-        </label>
-        <Tooltip :target="dataCurve">
+          <BaseSelect
+            v-model="config.dataCurve"
+            tooltip
+            :options="[
+              'true',
+              'false'
+            ]"
+          >
+          <template #tooltip>
             Show the line as a curve (spline)
-        </Tooltip>
-
-        <label class="flex flex-col" ref="dataAnimation">
-          <code class="dark:text-red-200">data-animation</code>
-          <select v-model="config.dataAnimation" @change="render()"><option>true</option><option>false</option></select>
+          </template>
+        </BaseSelect>
         </label>
-        <Tooltip :target="dataAnimation">
+
+        <label class="flex flex-col">
+          <code class="dark:text-red-200">data-animation</code>
+          <BaseSelect
+            v-model="config.dataAnimation"
+            tooltip
+            :options="[
+              'true',
+              'false'
+            ]"
+            @change="renderNext"
+          >
+          <template #tooltip>
             Animate the chart on load
-        </Tooltip>
+          </template>
+        </BaseSelect>
+        </label>
         
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-line-color</code>
@@ -583,11 +605,19 @@ const snippetsConfig = computed(() => {
         
         <label class="flex flex-col" ref="dataShowLastValue">
           <code class="dark:text-red-200">data-show-last-value</code>
-          <select v-model="config.dataShowLastValue"><option>true</option><option>false</option></select>
-        </label>
-        <Tooltip :target="dataShowLastValue">
+          <BaseSelect
+            v-model="config.dataShowLastValue"
+            tooltip
+            :options="[
+              'true',
+              'false'
+            ]"
+          >
+          <template #tooltip>
             Show a data label for the last value
-        </Tooltip>
+          </template>
+        </BaseSelect>
+        </label>
         
         <label class="flex flex-col" ref="dataLastValueFontSize">
           <code class="dark:text-red-200">data-last-value-font-size</code>
