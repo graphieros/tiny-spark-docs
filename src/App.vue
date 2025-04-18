@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, nextTick } from "vue";
-import { AnalyzeFilledIcon, BrandGithubFilledIcon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
+import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -10,6 +10,9 @@ import Waves from "./components/Waves.vue";
 import ButtonLink from "./components/ButtonLink.vue";
 import Tooltip from "./components/Tooltip.vue";
 import BaseSelect from "./components/BaseSelect.vue";
+import IconJs from "./components/IconJs.vue";
+import IconHtml from "./components/IconHtml.vue";
+import IconCss from "./components/IconCss.vue";
 
 const isDarkMode = ref(false);
 const isCopy = ref(false);
@@ -442,11 +445,11 @@ function renderNext() {
     </div>
 
     <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+      <IconJs/>
       <VueHiCode
         :content="setupContent"
         v-bind="{
           ...snippetsConfig,
-          title: 'JS'
         }"
         language="javascript"
         @copy="triggerCopy"
@@ -645,11 +648,11 @@ function renderNext() {
       Dynamic change in data-attributes will automatically re-render the chart.
     </h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+      <IconHtml/>
       <VueHiCode
         :content="codeContent"
         v-bind="{
           ...snippetsConfig,
-          title: 'HTML'
         }"
         language="html"
         @copy="triggerCopy"
@@ -658,11 +661,11 @@ function renderNext() {
 
     <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+      <IconCss/>
       <VueHiCode
         :content="cssContent"
         v-bind="{
           ...snippetsConfig,
-          title: 'CSS'
         }"
         language="css"
         @copy="triggerCopy"
@@ -672,11 +675,11 @@ function renderNext() {
 
     <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+      <IconJs/>
       <VueHiCode
         :content="tinyFormatContent"
         v-bind="{
           ...snippetsConfig,
-          title: 'JS'
         }"
         language="javascript"
         @copy="triggerCopy"
