@@ -445,7 +445,7 @@ function renderNext() {
     </div>
 
     <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
-      <IconJs/>
+      <IconJs class="shadow-md"/>
       <VueHiCode
         :content="setupContent"
         v-bind="{
@@ -648,7 +648,7 @@ function renderNext() {
       Dynamic change in data-attributes will automatically re-render the chart.
     </h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
-      <IconHtml/>
+      <IconHtml class="drop-shadow"/>
       <VueHiCode
         :content="codeContent"
         v-bind="{
@@ -661,7 +661,7 @@ function renderNext() {
 
     <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
-      <IconCss/>
+      <IconCss class="drop-shadow"/>
       <VueHiCode
         :content="cssContent"
         v-bind="{
@@ -675,7 +675,7 @@ function renderNext() {
 
     <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
     <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
-      <IconJs/>
+      <IconJs class="shadow-md"/>
       <VueHiCode
         :content="tinyFormatContent"
         v-bind="{
