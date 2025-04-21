@@ -55,12 +55,15 @@ function setTheme(theme) {
     document.documentElement.classList.remove('dark');
     document.documentElement.classList.add('light');
   }
+
+  initConfig.value.dataLastValueColor = isDarkMode.value ? '#FCA5A5' : '#1A1A1A';
+  config.value.dataLastValueColor = isDarkMode.value ? '#FCA5A5' : '#1A1A1A';
+  initConfig.value.dataLineColor = isDarkMode.value ? '#FCA5A5' : '#4A4A4A'
+  config.value.dataLineColor = isDarkMode.value ? '#FCA5A5' : '#4A4A4A'
 }
 
 function toggleTheme() {
   setTheme(isDarkMode.value ? 'light' : 'dark');
-  initConfig.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
-  config.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
   nextTick(render);
 }
 
@@ -112,7 +115,7 @@ const initConfig = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: isDarkMode.value ? '#8A8A8A' : '#1A1A1A'
+  dataLastValueColor: '#1A1A1A'
 });
 
 const config = ref({
@@ -130,7 +133,7 @@ const config = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: isDarkMode.value ? '#8A8A8A' : '#1A1A1A'
+  dataLastValueColor: '#1A1A1A'
 });
 
 function resetConfig() {
@@ -293,8 +296,8 @@ onMounted(() => {
         .catch(err => {
             data.value = [{ period: "", value: 0 }]
         }).finally(() => {
-          initConfig.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
-          config.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
+          // initConfig.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
+          // config.value.dataLastValueColor = isDarkMode.value ? '#8A8A8A' : '#1A1A1A';
           render();
         })
 
