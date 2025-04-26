@@ -87,12 +87,12 @@ const icon = {
 
 const tourContent = ref([
   {
-    tooltip: '<div class="stepper">Step 1</div> Install tiny-spark using your preferred package manager',
+    tooltip: '<div class="stepper">Step 1</div> Install <b>tiny-spark</b> using your preferred package manager',
     forceTooltipPosition: 'top',
     borderRadius: 8
   },
   {
-    tooltip: '<div class="stepper">Step 2</div> Import the render function from "tiny-spark"',
+    tooltip: '<div class="stepper">Step 2</div> Import the <code><b>render</b></code> function from "tiny-spark"',
     forceTooltipPosition: 'right',
     borderRadius: 8
   },
@@ -108,7 +108,7 @@ const tourContent = ref([
     borderRadius: 8
   },
   {
-    tooltip: '<div class="stepper">Step 5</div> Add your css implementation to customize the looks of the tooltip"',
+    tooltip: '<div class="stepper">Step 5</div> Add your css implementation to customize the looks of the tooltip',
     forceTooltipPosition: 'right',
     borderRadius: 8
   },
