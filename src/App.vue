@@ -1,6 +1,6 @@
 <script setup>
-import { ref, computed, onMounted, nextTick } from "vue";
-import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
+import { ref, computed, onMounted, nextTick, watch } from "vue";
+import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, PlayerPlayFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -13,11 +13,175 @@ import BaseSelect from "./components/BaseSelect.vue";
 import IconJs from "./components/IconJs.vue";
 import IconHtml from "./components/IconHtml.vue";
 import IconCss from "./components/IconCss.vue";
+import { targetHighlight, targetHide, applyStepListeners } from "target-highlight";
 
 const isDarkMode = ref(false);
 const isCopy = ref(false);
 
 const to = ref(null);
+const step = ref(-1);
+
+const tourOptions = computed(() => {
+  return {
+    overlayColor: 'rgba(0,0,0,0.5)',
+    nextCallback: nextStep,
+    previousCallback: previousStep,
+    stopCallback: ()  => {
+      step.value = -1;
+      targetHide()
+    },
+    borderWidth: 3,
+    borderColor: '#FCA5A5',
+    padding: '12px',
+    scrollToTarget: {
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center'
+    }
+  }
+})
+
+const wto = ref(null);
+
+const icon = {
+  chevronRight: `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M9 6l6 6l-6 6" />
+</svg>`,
+  chevronLeft: `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M15 6l-6 6l6 6" />
+</svg>`,
+  stop: `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>`
+}
+
+const tourContent = ref([
+  {
+    tooltip: '<b>Step 1:</b> install tiny-spark using your preferred package manager',
+    forceTooltipPosition: 'top',
+    borderRadius: 8
+  },
+  {
+    tooltip: '<b>Step 2:</b> import the render function from "tiny-spark"',
+    forceTooltipPosition: 'right',
+    borderRadius: 8
+  },
+  {
+    tooltip: '<b>Step 3:</b> set up the required <b>tiny-spark</b> class and <b>data-set</b> data-attribute, and optional data attributes to customize the looks of your chart"',
+    forceTooltipPosition: 'left',
+    borderRadius: 8
+  },
+  {
+    tooltip: '<b>Step 4:</b> tweak these knobs to quickly reach your preferred configuration',
+    forceTooltipPosition: 'top',
+    padding: '12px 12px 48px 12px',
+    borderRadius: 8
+  },
+  {
+    tooltip: '<b>Step 5:</b> add your css implementation to customize the looks of the tooltip"',
+    forceTooltipPosition: 'right',
+    borderRadius: 8
+  },
+  {
+    tooltip: '<b>Step 6:</b> this is how it looks!',
+    forceTooltipPosition: 'top'
+  },
+  {
+    tooltip: 'Drop a star if you like it :)',
+    forceTooltipPosition: 'left',
+    padding: '4px',
+    borderRadius: 40
+  }
+])
+
+const maxStep = computed(() => tourContent.value.length);
+
+watch(() => step.value, (v) => {
+  if (v === - 1) return
+  targetHighlight(`[data-step="${step.value}"]`, {
+    ...tourOptions.value,
+    ...tourContent.value[step.value],
+    tooltip: () => {
+      return `
+      <div style="position:relative; padding: 0 12px">
+        ${tourContent.value[step.value].tooltip}
+      </div>
+      <div style="position: relative; height: 36px; border-top: 1px solid #FCA5A5; padding-top: 12px; margin-top: 12px;">
+        <button id="target-highlight-button-previous" style="position: absolute; top: 50%; left: 0; transform: translateY(-40%)">${icon.chevronLeft}</button>
+        <button id="target-highlight-button-next" style="position: absolute; top: 50%; right: 0; transform: translateY(-40%)">${icon.chevronRight}</button>
+        <button id="target-highlight-button-stop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%)">${icon.stop}</button>
+      </div>
+      `
+    }
+  })
+
+  if (wto.value) {
+    clearTimeout(wto.value)
+  }
+  
+  wto.value = setTimeout(() => {
+    applyStepListeners(tourOptions.value)
+  }, 0)
+})
+
+onMounted(() => {
+  window.addEventListener('resize', () => {
+    if (wto.value) {
+      clearTimeout(wto.value)
+    }
+    wto.value = setTimeout(() => applyStepListeners(tourOptions.value), 0)
+  })
+})
+
+function nextStep() {
+  step.value += 1;
+  if (step.value > maxStep.value - 1) {
+    step.value = 0;
+  }
+}
+
+function previousStep() {
+  step.value -= 1;
+  if (step.value < 0) {
+    step.value = maxStep.value - 1;
+  }
+}
+
+function takeTheTour() {
+  step.value = -1;
+  nextStep();
+}
 
 function triggerCopy() {
   isCopy.value = true;
@@ -377,7 +541,7 @@ function renderNext() {
           <MoonIcon v-else/>
         </button>
 
-        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank" data-step="6">
           <BrandGithubFilledIcon/>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
               <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars" class="dark:text-red-300">{{ stars }}</span>
@@ -386,9 +550,16 @@ function renderNext() {
       </div>
     </header>
 
-    <h1 class="pl-8 mb-12 max-w-[32ch] text-gray-700 dark:text-gray-500">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
+    <h1 class="pl-8 mb-6 max-w-[32ch] text-gray-700 dark:text-gray-500">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
 
-    <div class="w-full flex flex-row gap-2 flex-wrap justify-center mb-12">
+    <button
+          class="ml-8 mb-12 shadow-md bg-gradient-to-br from-[#ffd3d3] to-[#FCA5A5] hover:from-[#FCA5A5] hover:to-[#ffd3d3] transition-colors text-black rounded py-3 px-5 pr-7 mt-6 flex flex-row gap-2 place-items-center"
+          @click="takeTheTour">
+          <PlayerPlayFilledIcon class="text-[#19313d]"/>
+          TAKE THE TOUR
+      </button>
+
+    <div class="mx-auto w-fit flex flex-row gap-2 flex-wrap justify-center mb-12" data-step="0">
       <div class="w-[200px]">
         <VueHiCode
           :content="installContentNPM"
@@ -447,7 +618,7 @@ function renderNext() {
       </div>
     </div>
 
-    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="1">
       <IconJs class="shadow-md"/>
       <VueHiCode
         :content="setupContent"
@@ -460,9 +631,9 @@ function renderNext() {
     </div>
 
     <section>
-      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 dark:border-gray-600 border-dashed overflow-auto">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
         <div class="showcase w-full h-full mx-auto">
-          <div 
+          <div
             class="tiny-spark" 
             :data-curve="config.dataCurve"
             :data-animation="config.dataAnimation"
@@ -497,7 +668,7 @@ function renderNext() {
         <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-red-300 animate-spin"/> Random data</button>
       </div>
 
-      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed">
+      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
         <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col" ref="dataCurve">
           <code class="dark:text-red-200">data-curve</code>
@@ -650,7 +821,7 @@ function renderNext() {
       Except for <span class="border text-sm py-1 px-2 rounded-full"><code>data-set</code></span> all data-attributes are optional.<br>
       Dynamic change in data-attributes will automatically re-render the chart.
     </h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="2">
       <IconHtml class="drop-shadow"/>
       <VueHiCode
         :content="codeContent"
@@ -663,7 +834,7 @@ function renderNext() {
     </div>
 
     <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="4">
       <IconCss class="drop-shadow"/>
       <VueHiCode
         :content="cssContent"
@@ -677,7 +848,7 @@ function renderNext() {
 
 
     <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
-    <div class="w-full mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
+    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
       <IconJs class="shadow-md"/>
       <VueHiCode
         :content="tinyFormatContent"
@@ -740,6 +911,9 @@ function renderNext() {
             />
           </div>
         </div>
+        <p class="text-[#ffdfdf] dark:text-gray-400 mt-12">
+          The tour was made using <a class="text-black dark:text-[#FCA5A5] underline" href="https://target-highlight.graphieros.com/" target="_blank">target-highlight</a>
+        </p>
     </div>
   </main>
 
@@ -857,5 +1031,71 @@ html.dark input{
 .glassed {
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+
+.target-highlight-tooltip {
+  background: radial-gradient(at top left, #ffd9d9, #FCA5A5);
+  padding: 6px;
+  color: #1F1F1F;
+  transform: translateY(-4px);
+  border-radius: 3px;
+  max-width: 300px;
+}
+
+.target-highlight-tooltip::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+:root {
+  --tooltip-arrow-size: 6px;
+  --tooltip-bg: #FCA5A5;
+}
+
+/* ─── TOP placement ───
+   Tooltip sits above the element,
+   arrow on the bottom edge pointing DOWN toward the element */
+.target-highlight-tooltip[data-placement="top"]::after {
+  bottom: calc(-1 * var(--tooltip-arrow-size));
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size);
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+
+/* ─── BOTTOM placement ───
+   Tooltip sits below the element,
+   arrow on the top edge pointing UP toward the element */
+.target-highlight-tooltip[data-placement="bottom"]::after {
+  top: calc(-1 * var(--tooltip-arrow-size));
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+
+/* ─── LEFT placement ───
+   Tooltip sits to the left of the element,
+   arrow on the right edge pointing RIGHT toward the element */
+.target-highlight-tooltip[data-placement="left"]::after {
+  right: calc(-1 * var(--tooltip-arrow-size));
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: var(--tooltip-arrow-size) 0 var(--tooltip-arrow-size) var(--tooltip-arrow-size);
+  border-color: transparent transparent transparent var(--tooltip-bg);
+}
+
+/* ─── RIGHT placement ───
+   Tooltip sits to the right of the element,
+   arrow on the left edge pointing LEFT toward the element */
+.target-highlight-tooltip[data-placement="right"]::after {
+  left: calc(-1 * var(--tooltip-arrow-size));
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
+  border-color: transparent var(--tooltip-bg) transparent transparent;
 }
 </style>
