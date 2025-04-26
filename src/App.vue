@@ -139,8 +139,8 @@ watch(() => step.value, (v) => {
         ${tourContent.value[step.value].tooltip}
       </div>
       <div style="position: relative; height: 36px; border-top: 1px solid #FCA5A5; padding-top: 12px; margin-top: 12px;">
-        <button id="target-highlight-button-previous" style="position: absolute; top: 50%; left: 0; transform: translateY(-40%)">${icon.chevronLeft}</button>
-        <button id="target-highlight-button-next" style="position: absolute; top: 50%; right: 0; transform: translateY(-40%)">${icon.chevronRight}</button>
+        <button ${step.value === 0 ? 'disabled' : ''} id="target-highlight-button-previous" style="${step.value === 0 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; left: 0; transform: translateY(-40%)">${icon.chevronLeft}</button>
+        <button ${step.value === maxStep.value - 1 ? 'disabled' : ''} id="target-highlight-button-next" style="${step.value === maxStep.value - 1 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; right: 0; transform: translateY(-40%)">${icon.chevronRight}</button>
         <button id="target-highlight-button-stop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%)">${icon.stop}</button>
       </div>
       `
@@ -1098,5 +1098,41 @@ html.dark input{
   transform: translateY(-50%);
   border-width: var(--tooltip-arrow-size) var(--tooltip-arrow-size) var(--tooltip-arrow-size) 0;
   border-color: transparent var(--tooltip-bg) transparent transparent;
+}
+
+#target-highlight-button-previous,
+#target-highlight-button-next,
+#target-highlight-button-stop {
+  background-color: transparent;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  border-radius: 50%;
+}
+
+#target-highlight-button-previous svg path,
+#target-highlight-button-next svg path,
+#target-highlight-button-stop svg path {
+  transition: stroke 0.2s ease, transform 0.2s ease;
+}
+
+#target-highlight-button-previous:hover,
+#target-highlight-button-next:hover,
+#target-highlight-button-stop:hover {
+  background-color: #FFFFFF50;
+  box-shadow: 0 3px 6px -3px rgba(0,0,0,0.3);
+}
+
+#target-highlight-button-previous:hover svg path,
+#target-highlight-button-next:hover svg path,
+#target-highlight-button-stop:hover svg path {
+  stroke: #b66060;
+}
+
+#target-highlight-button-stop:hover {
+  transform: scale(1.2,1.2) translate(-40%, -35%) !important;
+}
+
+#target-highlight-button-previous:not([disabled]):hover,
+#target-highlight-button-next:hover {
+  transform: scale(1.2,1.2) translateY(-35%) !important;
 }
 </style>
