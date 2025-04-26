@@ -50,26 +50,24 @@ const icon = {
   width="24"
   height="24"
   viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
+  fill="currentColor"
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
 >
-  <path d="M9 6l6 6l-6 6" />
+  <path d="M4 9h8v-3.586a1 1 0 0 1 1.707 -.707l6.586 6.586a1 1 0 0 1 0 1.414l-6.586 6.586a1 1 0 0 1 -1.707 -.707v-3.586h-8a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1z" />
 </svg>`,
   chevronLeft: `<svg
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
   viewBox="0 0 24 24"
-  fill="none"
-  stroke="currentColor"
+  fill="currentColor"
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
 >
-  <path d="M15 6l-6 6l6 6" />
+<path d="M20 15h-8v3.586a1 1 0 0 1 -1.707 .707l-6.586 -6.586a1 1 0 0 1 0 -1.414l6.586 -6.586a1 1 0 0 1 1.707 .707v3.586h8a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1z" />
 </svg>`,
   stop: `<svg
   xmlns="http://www.w3.org/2000/svg"
@@ -89,33 +87,33 @@ const icon = {
 
 const tourContent = ref([
   {
-    tooltip: '<b>Step 1:</b> install tiny-spark using your preferred package manager',
+    tooltip: '<div class="stepper">Step 1</div> Install tiny-spark using your preferred package manager',
     forceTooltipPosition: 'top',
     borderRadius: 8
   },
   {
-    tooltip: '<b>Step 2:</b> import the render function from "tiny-spark"',
+    tooltip: '<div class="stepper">Step 2</div> Import the render function from "tiny-spark"',
     forceTooltipPosition: 'right',
     borderRadius: 8
   },
   {
-    tooltip: '<b>Step 3:</b> set up the required <b>tiny-spark</b> class and <b>data-set</b> data-attribute, and optional data attributes to customize the looks of your chart"',
+    tooltip: '<div class="stepper">Step 3</div> Set up the required <b>tiny-spark</b> class and <b>data-set</b> data-attribute, and optional data attributes to customize the looks of your chart"',
     forceTooltipPosition: 'left',
     borderRadius: 8
   },
   {
-    tooltip: '<b>Step 4:</b> tweak these knobs to quickly reach your preferred configuration',
+    tooltip: '<div class="stepper">Step 4</div> Tweak these knobs to quickly reach your preferred configuration',
     forceTooltipPosition: 'top',
     padding: '12px 12px 48px 12px',
     borderRadius: 8
   },
   {
-    tooltip: '<b>Step 5:</b> add your css implementation to customize the looks of the tooltip"',
+    tooltip: '<div class="stepper">Step 5</div> Add your css implementation to customize the looks of the tooltip"',
     forceTooltipPosition: 'right',
     borderRadius: 8
   },
   {
-    tooltip: '<b>Step 6:</b> this is how it looks!',
+    tooltip: '<div class="stepper">Step 6</div> This is how it looks!',
     forceTooltipPosition: 'top'
   },
   {
@@ -1111,7 +1109,7 @@ html.dark input{
 #target-highlight-button-previous svg path,
 #target-highlight-button-next svg path,
 #target-highlight-button-stop svg path {
-  transition: stroke 0.2s ease, transform 0.2s ease;
+  transition: fill 0.2s ease, transform 0.2s ease;
 }
 
 #target-highlight-button-previous:hover,
@@ -1124,7 +1122,7 @@ html.dark input{
 #target-highlight-button-previous:hover svg path,
 #target-highlight-button-next:hover svg path,
 #target-highlight-button-stop:hover svg path {
-  stroke: #b66060;
+  fill: #b66060;
 }
 
 #target-highlight-button-stop:hover {
@@ -1134,5 +1132,11 @@ html.dark input{
 #target-highlight-button-previous:not([disabled]):hover,
 #target-highlight-button-next:hover {
   transform: scale(1.2,1.2) translateY(-35%) !important;
+}
+
+.stepper {
+  color: #b66060;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 </style>
