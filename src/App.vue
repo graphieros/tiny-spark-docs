@@ -42,6 +42,10 @@ const tourOptions = computed(() => {
   }
 })
 
+onMounted(() => {
+  document.title = `tiny-spark ${version.value}`;
+})
+
 const wto = ref(null);
 
 const icon = {

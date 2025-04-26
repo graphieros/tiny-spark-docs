@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps<{ target: HTMLElement | null }>()
 
