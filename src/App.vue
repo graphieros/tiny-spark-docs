@@ -23,6 +23,7 @@ const step = ref(-1);
 
 const tourOptions = computed(() => {
   return {
+    overlayZIndex: 1,
     overlayColor: 'rgba(0,0,0,0.5)',
     nextCallback: nextStep,
     previousCallback: previousStep,
