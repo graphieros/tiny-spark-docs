@@ -1107,9 +1107,14 @@ html.dark input{
 }
 
 #target-highlight-button-previous svg path,
-#target-highlight-button-next svg path,
-#target-highlight-button-stop svg path {
+#target-highlight-button-next svg path {
   transition: fill 0.2s ease, transform 0.2s ease;
+  fill: #b66060;
+}
+
+#target-highlight-button-stop svg path {
+  transition: stroke 0.2s ease, transform 0.2s ease;
+  stroke: #b66060;
 }
 
 #target-highlight-button-previous:hover,
@@ -1120,9 +1125,12 @@ html.dark input{
 }
 
 #target-highlight-button-previous:hover svg path,
-#target-highlight-button-next:hover svg path,
+#target-highlight-button-next:hover svg path {
+  fill: #1A1A1A;
+}
+
 #target-highlight-button-stop:hover svg path {
-  fill: #b66060;
+  stroke: #1A1A1A;
 }
 
 #target-highlight-button-stop:hover {
