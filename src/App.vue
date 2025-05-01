@@ -282,7 +282,8 @@ const initConfig = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: '#1A1A1A'
+  dataLastValueColor: '#1A1A1A',
+  dataType: 'line'
 });
 
 const config = ref({
@@ -300,7 +301,8 @@ const config = ref({
   area: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
-  dataLastValueColor: '#1A1A1A'
+  dataLastValueColor: '#1A1A1A',
+  dataType: 'line'
 });
 
 function resetConfig() {
@@ -339,6 +341,7 @@ const codeContent = computed(() => {
     <div 
       class="tiny-spark" 
       data-responsive
+      data-type="${config.type}"
       data-set="${dataset.value}"
       data-dates='${dates.value}'
       data-curve="${config.value.dataCurve}"
@@ -402,8 +405,13 @@ const cssContent = ref(`
   /** for example: customize stroke-dasharray */
 }
 
-/** the plots (svg circle element) */
+/** the plots (svg circle element in line mode) */
 .tiny-spark-datapoint-circle {
+  stroke: rgb(210,210,210);
+}
+
+/** the bars (svg rect element in bar mode) */
+.tiny-spark-datapoint-bar {
   stroke: rgb(210,210,210);
 }
 
@@ -485,6 +493,7 @@ onMounted(() => {
 
 const dataCurve = ref(null);
 const dataAnimation = ref(null);
+const dataType = ref(null);
 const dataLineColor = ref(null);
 const dataAreaColor = ref(null);
 const dataLineThickness = ref(null);
@@ -638,6 +647,7 @@ function renderNext() {
         <div class="showcase w-full h-full mx-auto">
           <div
             class="tiny-spark" 
+            :data-type="config.dataType"
             :data-curve="config.dataCurve"
             :data-animation="config.dataAnimation"
             :data-line-color="config.dataLineColor"
@@ -674,6 +684,22 @@ function renderNext() {
       <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
         <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col" ref="dataCurve">
+          <code class="dark:text-red-200">data-type</code>
+          <BaseSelect
+            v-model="config.dataType"
+            tooltip
+            :options="[
+              'line',
+              'bar'
+            ]"
+          >
+          <template #tooltip>
+            Show a line chart or a bar chart
+          </template>
+        </BaseSelect>
+        </label>
+
+        <label class="flex flex-col" ref="dataCurve">
           <code class="dark:text-red-200">data-curve</code>
           <BaseSelect
             v-model="config.dataCurve"
@@ -684,6 +710,7 @@ function renderNext() {
             ]"
           >
           <template #tooltip>
+            Line mode only.
             Show the line as a curve (spline)
           </template>
         </BaseSelect>
@@ -711,7 +738,8 @@ function renderNext() {
           <input type="color" v-model="config.dataLineColor" ref="dataLineColor"/>
         </label>
         <Tooltip :target="dataLineColor">
-            Set the color of the line
+          Line mode only.
+          Set the color of the line
         </Tooltip>
         
         <label class="flex flex-col">
@@ -719,6 +747,7 @@ function renderNext() {
           <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
         </label>
         <Tooltip :target="dataAreaColor">
+          Line mode only.
             Set the color of the area
         </Tooltip>
 
@@ -732,7 +761,8 @@ function renderNext() {
           <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
         </label>
         <Tooltip :target="dataLineThickness">
-            Set the thickness of the line (stroke width)
+          Line mode only.  
+          Set the thickness of the line (stroke width)
         </Tooltip>
 
         <label class="flex flex-col">
@@ -740,7 +770,7 @@ function renderNext() {
           <input type="color" v-model="config.dataPlotColor" ref="dataPlotColor"/>
         </label>
         <Tooltip :target="dataPlotColor">
-            Set the fill color of datapoint circles. To change the stroke color, use css (target the .tiny-spark-datapoint-circle css class)
+            Set the fill color of datapoint circles or bars. To change the stroke color, use css (target the <code><b>.tiny-spark-datapoint-circle</b></code> css class for the line chart, or <code><b>.tiny-spark-datapoint-bar</b></code> for the bar chart)
         </Tooltip>
 
         <label class="flex flex-col" ref="dataPlotRadius">
@@ -1150,5 +1180,9 @@ html.dark input{
   color: #b66060;
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.tiny-spark-datapoint-bar {
+  stroke: rgb(210,210,210);
 }
 </style>
