@@ -341,7 +341,7 @@ const codeContent = computed(() => {
     <div 
       class="tiny-spark" 
       data-responsive
-      data-type="${config.type}"
+      data-type="${config.value.dataType}"
       data-set="${dataset.value}"
       data-dates='${dates.value}'
       data-curve="${config.value.dataCurve}"
