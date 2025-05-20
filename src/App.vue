@@ -1188,26 +1188,29 @@ html.dark input{
 
 .target-highlight-tooltip {
   opacity: 1;
-  transition: opacity 0.3s;
-  will-change: opacity;
+  transform: scale(1, 1);
+  transition: opacity 0.3s transform 0.3s;
+  will-change: opacity transform;
 }
 
 .target-highlight-tooltip.fade-in {
   opacity: 0;
+  transform: scale(0,0);
   animation: fadeIn 0.3s forwards;
 }
 
 .target-highlight-tooltip.fade-out {
   opacity: 1;
+  transform: scale(1, 1);
   animation: fadeOut 0.3s forwards;
   pointer-events: none;
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  to { opacity: 1; transform: scale(1, 1); }
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; }
+  to { opacity: 0; transform: scale(0, 0); }
 }
 </style>
