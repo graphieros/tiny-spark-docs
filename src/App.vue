@@ -1195,7 +1195,7 @@ html.dark input{
 
 .target-highlight-tooltip.fade-in {
   opacity: 0;
-  transform: scale(0,0);
+  transform: scale(0.8,0.8);
   animation: fadeIn 0.3s forwards;
 }
 
