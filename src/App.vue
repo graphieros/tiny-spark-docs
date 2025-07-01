@@ -283,7 +283,8 @@ const initConfig = ref({
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
-  dataType: 'line'
+  dataType: 'line',
+  dataTooltipSmoothing: 1
 });
 
 const config = ref({
@@ -302,7 +303,8 @@ const config = ref({
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
-  dataType: 'line'
+  dataType: 'line',
+  dataTooltipSmoothing: 1
 });
 
 function resetConfig() {
@@ -359,6 +361,7 @@ const codeContent = computed(() => {
       data-show-last-value="${config.value.dataShowLastValue}"
       data-last-value-font-size="${config.value.dataLastValueFontSize}"
       data-last-value-color="${config.value.dataLastValueColor}"
+      data-tooltip-smoothing="${config.value.dataTooltipSmoothing}"
     />
   </div>
 </div>`
@@ -506,6 +509,7 @@ const dataIndicatorWidth = ref(null);
 const dataShowLastValue = ref(null);
 const dataLastValueFontSize = ref(null);
 const dataLastValueColor = ref(null);
+const dataTooltipSmoothing = ref(1);
 
 const snippetsConfig = computed(() => {
   return {
@@ -523,7 +527,7 @@ const snippetsConfig = computed(() => {
     colorParenthesis: isDarkMode.value ? '#8A8A8A' : '#3A3A3A',
     colorTitle: isDarkMode.value ? '#CCCCCC' : '#1A1A1A',
     colorHtmlTag: isDarkMode.value ? '#559AD3' : '#2f74ad',
-    colorCssSelector: isDarkMode.value ? '#D7BA7D' : '#a1864c'
+    colorCssSelector: isDarkMode.value ? '#D7BA7D' : '#a1864c',
   }
 })
 
@@ -666,6 +670,7 @@ function renderNext() {
             :data-show-last-value="config.dataShowLastValue"
             :data-last-value-font-size="config.dataLastValueFontSize"
             :data-last-value-color="config.dataLastValueColor"
+            :data-tooltip-smoothing="config.dataTooltipSmoothing"
           />
         </div>
         <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-red-300">
@@ -732,6 +737,15 @@ function renderNext() {
           </template>
         </BaseSelect>
         </label>
+
+        <label class="flex flex-col" ref="dataTooltipSmoothing">
+          <code class="dark:text-red-200">data-tooltip-smoothing</code>
+          <input type="number" v-model="config.dataTooltipSmoothing" :min="0" :max="2" :step="0.01"/>
+        </label>
+        <Tooltip :target="dataTooltipSmoothing">
+          Set the smoothing transition of the tooltip.
+          The lower the slower.
+        </Tooltip>
         
         <label class="flex flex-col">
           <code class="dark:text-red-200">data-line-color</code>
@@ -941,6 +955,7 @@ function renderNext() {
               :data-dates="history.dates"
               data-show-last-value="true"
               :data-last-value-color="isDarkMode ? '#FCA5A5' : '#4A4A4A'"
+              :data-tooltip-smoothing="1"
             />
           </div>
         </div>
