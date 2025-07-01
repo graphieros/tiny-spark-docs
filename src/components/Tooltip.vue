@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, watch, onMounted, onBeforeUnmount, unref } from 'vue'
+import type { Ref } from 'vue'
 
-const props = defineProps<{ target: HTMLElement | null }>()
+const props = defineProps<{
+    target: HTMLElement | Ref<HTMLElement | null> | null
+}>()
 
 const isVisible = ref(false)
-
 const tooltipStyles = ref<Record<string, string>>({
     top: '0px',
     left: '0px',
@@ -17,10 +19,12 @@ function updatePosition(el: HTMLElement) {
 }
 
 function showTooltip() {
-    if (!props.target) return
-    updatePosition(props.target)
+    const el = unref(props.target)
+    if (!(el instanceof HTMLElement)) return
+    updatePosition(el)
     isVisible.value = true
 }
+
 function hideTooltip() {
     isVisible.value = false
 }
@@ -31,15 +35,18 @@ let resizeHandler: () => void
 watch(
     () => props.target,
     (newEl, oldEl) => {
-        if (oldEl) {
-            oldEl.removeEventListener('mouseenter', showTooltip)
-            oldEl.removeEventListener('mouseleave', hideTooltip)
-            oldEl.removeEventListener('click', hideTooltip)
+        const prev = unref(oldEl)
+        if (prev instanceof HTMLElement) {
+            prev.removeEventListener('mouseenter', showTooltip)
+            prev.removeEventListener('mouseleave', hideTooltip)
+            prev.removeEventListener('click', hideTooltip)
         }
-        if (newEl) {
-            newEl.addEventListener('mouseenter', showTooltip)
-            newEl.addEventListener('mouseleave', hideTooltip)
-            newEl.addEventListener('click', hideTooltip)
+
+        const curr = unref(newEl)
+        if (curr instanceof HTMLElement) {
+            curr.addEventListener('mouseenter', showTooltip)
+            curr.addEventListener('mouseleave', hideTooltip)
+            curr.addEventListener('click', hideTooltip)
         }
     },
     { immediate: true }
@@ -47,20 +54,23 @@ watch(
 
 onMounted(() => {
     scrollHandler = () => {
-        if (isVisible.value && props.target) updatePosition(props.target)
+        const el = unref(props.target)
+        if (isVisible.value && el instanceof HTMLElement) {
+            updatePosition(el)
+        }
     }
-    resizeHandler = () => {
-        if (isVisible.value && props.target) updatePosition(props.target)
-    }
+    resizeHandler = scrollHandler
+
     window.addEventListener('scroll', scrollHandler, true)
     window.addEventListener('resize', resizeHandler)
 })
 
 onBeforeUnmount(() => {
-    if (props.target) {
-        props.target.removeEventListener('mouseenter', showTooltip)
-        props.target.removeEventListener('mouseleave', hideTooltip)
-        props.target.removeEventListener('click', hideTooltip)
+    const el = unref(props.target)
+    if (el instanceof HTMLElement) {
+        el.removeEventListener('mouseenter', showTooltip)
+        el.removeEventListener('mouseleave', hideTooltip)
+        el.removeEventListener('click', hideTooltip)
     }
     window.removeEventListener('scroll', scrollHandler, true)
     window.removeEventListener('resize', resizeHandler)
