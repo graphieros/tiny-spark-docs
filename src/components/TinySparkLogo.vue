@@ -8,7 +8,7 @@ const props = defineProps({
     },
     color: {
         type: String,
-        default: '#FEE2E2'
+        default: '#ccfbf1'
     },
     fill: {
         type: String,

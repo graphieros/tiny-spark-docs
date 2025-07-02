@@ -1,8 +1,8 @@
 <template>
     <svg :viewBox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid" :style="svgStyles">
         <linearGradient :id="gradId" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#FEE2E210" />
-            <stop offset="1" stop-color="#FEE2E240" />
+            <stop offset="0" stop-color="#99f6e410" />
+            <stop offset="1" stop-color="#99f6e480" />
         </linearGradient>
         <g>
             <path v-for="(d, i) in wavePaths" :key="i" :d="d" :fill="`url(#${gradId})`" opacity="0.5" />

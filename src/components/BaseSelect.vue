@@ -2,7 +2,7 @@
     <div class="custom-select" ref="selectRef">
         <button type="button" class="select-trigger" @click="toggle" :aria-expanded="isOpen" ref="triggerButton">
             <span class="selected-value">{{ selectedLabel }}</span>
-            <ChevronDownIcon class="arrow dark:text-red-200" :size="16" :data-open="isOpen" />
+            <ChevronDownIcon class="arrow dark:text-teal-200" :size="16" :data-open="isOpen" />
         </button>
         <transition name="fade">
             <ul v-if="isOpen" class="options-list">
@@ -87,14 +87,14 @@ onBeforeUnmount(() => {
 }
 
 html.light .select-trigger {
-    background-color: #FEE2E230;
-    border: 1px solid #FEE2E2;
+    background-color: #99f6e430;
+    border: 1px solid #99f6e4;
     color: #1A1A1A;
 }
 html.dark .select-trigger {
-    background: #FEE2E230;
-    border: 1px solid #FEE2E250;
-    color: #FEE2E2;
+    background: #99f6e430;
+    border: 1px solid #99f6e450;
+    color: #99f6e4;
 }
 
 .arrow {
@@ -119,7 +119,7 @@ html.dark .select-trigger {
 }
 
 .options-list {
-    background: #FEE2E2;
+    background: #99f6e4;
     color: #1A1A1A;
 }
 

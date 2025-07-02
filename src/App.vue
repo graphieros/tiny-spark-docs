@@ -32,7 +32,7 @@ const tourOptions = computed(() => {
       targetHide()
     },
     borderWidth: 3,
-    borderColor: '#FCA5A5',
+    borderColor: '#14b8a6',
     padding: '12px',
     scrollToTarget: {
       behavior: 'smooth',
@@ -140,7 +140,7 @@ watch(() => step.value, (v) => {
       <div style="position:relative; padding: 0 12px">
         ${tourContent.value[step.value].tooltip}
       </div>
-      <div style="position: relative; height: 36px; border-top: 1px solid #FCA5A5; padding-top: 12px; margin-top: 12px;">
+      <div style="position: relative; height: 36px; border-top: 1px solid #14b8a6; padding-top: 12px; margin-top: 12px;">
         <button ${step.value === 0 ? 'disabled' : ''} id="target-highlight-button-previous" style="${step.value === 0 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; left: 0; transform: translateY(-40%)">${icon.chevronLeft}</button>
         <button ${step.value === maxStep.value - 1 ? 'disabled' : ''} id="target-highlight-button-next" style="${step.value === maxStep.value - 1 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; right: 0; transform: translateY(-40%)">${icon.chevronRight}</button>
         <button id="target-highlight-button-stop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%)">${icon.stop}</button>
@@ -223,10 +223,10 @@ function setTheme(theme) {
     document.documentElement.classList.add('light');
   }
 
-  initConfig.value.dataLastValueColor = isDarkMode.value ? '#FCA5A5' : '#1A1A1A';
-  config.value.dataLastValueColor = isDarkMode.value ? '#FCA5A5' : '#1A1A1A';
-  initConfig.value.dataLineColor = isDarkMode.value ? '#FCA5A5' : '#4A4A4A'
-  config.value.dataLineColor = isDarkMode.value ? '#FCA5A5' : '#4A4A4A'
+  initConfig.value.dataLastValueColor = isDarkMode.value ? '#14b8a6' : '#1A1A1A';
+  config.value.dataLastValueColor = isDarkMode.value ? '#14b8a6' : '#1A1A1A';
+  initConfig.value.dataLineColor = isDarkMode.value ? '#14b8a6' : '#4A4A4A'
+  config.value.dataLineColor = isDarkMode.value ? '#14b8a6' : '#4A4A4A'
 }
 
 function toggleTheme() {
@@ -271,7 +271,7 @@ const initConfig = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#FCA5A520',
+  dataAreaColor: '#14b8a620',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -291,7 +291,7 @@ const config = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#FCA5A520',
+  dataAreaColor: '#14b8a620',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -312,7 +312,7 @@ function resetConfig() {
 }
 
 function setArea(e) {
-  config.value.dataAreaColor = e.target.value === 'true' ? '#FCA5A520' : undefined
+  config.value.dataAreaColor = e.target.value === 'true' ? '#14b8a620' : undefined
 }
 
 const dataset = ref(makeDs(12));
@@ -545,22 +545,22 @@ function renderNext() {
   <main class="w-full mx-auto max-w-[1200px] px-6">
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2 pr-6">
       <div class="text-4xl flex flex-row gap-2 place-items-end">
-        <div class="flex flex-row place-items-center gap-2 text-black dark:text-red-300">
-          <TinySparkLogo :size="29"/>
+        <div class="flex flex-row place-items-center gap-2 text-black dark:text-teal-300">
+          <TinySparkLogo :size="29" :color="isDarkMode ? '#ccfbf1' : '#2dd4bf'"/>
             tiny-spark 
         </div>
-        <small class="text-sm text-gray-700 bg-red-100 dark:bg-transparent dark:text-gray-500 dark:border dark:border-gray-700 px-2 rounded-full -translate-y-1">{{ version }}</small>
+        <small class="text-sm text-gray-700 bg-teal-100 dark:bg-teal-800 dark:text-teal-100 dark:border dark:border-teal-500 px-2 rounded-full -translate-y-1">{{ version }}</small>
       </div>
       <div class="flex flex-row place-items-center gap-4">
         <button @click="toggleTheme">
-          <SunIcon v-if="isDarkMode" class="text-red-300"/>
+          <SunIcon v-if="isDarkMode" class="text-teal-300"/>
           <MoonIcon v-else/>
         </button>
 
-        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank" data-step="6">
+        <a class="relative p-1 bg-teal-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank" data-step="6">
           <BrandGithubFilledIcon/>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-              <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars" class="dark:text-red-300">{{ stars }}</span>
+              <StarFilledIcon :size="16" class="text-teal-100"/> <span v-if="stars" class="dark:text-teal-300">{{ stars }}</span>
             </div>
         </a>
       </div>
@@ -569,7 +569,7 @@ function renderNext() {
     <h1 class="pl-8 mb-6 max-w-[32ch] text-gray-700 dark:text-gray-500">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
 
     <button
-          class="ml-8 mb-12 shadow-md bg-gradient-to-br from-[#ffd3d3] to-[#FCA5A5] hover:from-[#FCA5A5] hover:to-[#ffd3d3] transition-colors text-black rounded py-3 px-5 pr-7 mt-6 flex flex-row gap-2 place-items-center"
+          class="ml-8 mb-12 shadow-md bg-gradient-to-br from-[#99f6e4] to-[#14b8a6] hover:from-[#14b8a6] hover:to-[#99f6e4] transition-colors text-black rounded py-3 px-5 pr-7 mt-6 flex flex-row gap-2 place-items-center"
           @click="takeTheTour">
           <PlayerPlayFilledIcon class="text-[#19313d]"/>
           TAKE THE TOUR
@@ -581,9 +581,9 @@ function renderNext() {
           :content="installContentNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
+            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -595,9 +595,9 @@ function renderNext() {
           :content="installContentYARN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
+            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -609,9 +609,9 @@ function renderNext() {
           :content="installContentPNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
+            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -623,9 +623,9 @@ function renderNext() {
           :content="installContentBUN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#2A2A2A'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#8A8A8A' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#FCA5A580' : '#8A8A8A',
+            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -647,7 +647,7 @@ function renderNext() {
     </div>
 
     <section>
-      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-red-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-teal-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
         <div class="showcase w-full h-full mx-auto">
           <div
             class="tiny-spark" 
@@ -673,23 +673,23 @@ function renderNext() {
             :data-tooltip-smoothing="config.dataTooltipSmoothing"
           />
         </div>
-        <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-red-300">
+        <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-teal-300">
           resize
         </div>
-        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-red-100 dark:bg-red-300 pointer-events-none select-none"/>
+        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-teal-100 dark:bg-red-300 pointer-events-none select-none"/>
       </div>
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
         <span class="dark:text-gray-400">
           The chart is <strong>responsive</strong>. Try resizing the container.<br>
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-red-300 animate-spin"/> Random data</button>
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-teal-300 animate-spin"/> Random data</button>
       </div>
 
-      <fieldset class="border border-solid border-red-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
-        <legend class="px-2 flex flex-row gap-2 dark:text-red-200"><SettingsIcon class="text-red-100"/> <strong>Configuration options</strong></legend>
+      <fieldset class="border border-solid border-teal-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
+        <legend class="px-2 flex flex-row gap-2 dark:text-teal-200"><SettingsIcon class="text-teal-100"/> <strong>Configuration options</strong></legend>
         <label class="flex flex-col" ref="dataCurve">
-          <code class="dark:text-red-200">data-type</code>
+          <code class="dark:text-teal-200">data-type</code>
           <BaseSelect
             v-model="config.dataType"
             tooltip
@@ -705,7 +705,7 @@ function renderNext() {
         </label>
 
         <label class="flex flex-col" ref="dataCurve">
-          <code class="dark:text-red-200">data-curve</code>
+          <code class="dark:text-teal-200">data-curve</code>
           <BaseSelect
             v-model="config.dataCurve"
             tooltip
@@ -722,7 +722,7 @@ function renderNext() {
         </label>
 
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-animation</code>
+          <code class="dark:text-teal-200">data-animation</code>
           <BaseSelect
             v-model="config.dataAnimation"
             tooltip
@@ -739,7 +739,7 @@ function renderNext() {
         </label>
 
         <label class="flex flex-col" ref="dataTooltipSmoothing">
-          <code class="dark:text-red-200">data-tooltip-smoothing</code>
+          <code class="dark:text-teal-200">data-tooltip-smoothing</code>
           <input type="number" v-model="config.dataTooltipSmoothing" :min="0" :max="2" :step="0.01"/>
         </label>
         <Tooltip :target="dataTooltipSmoothing">
@@ -748,7 +748,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-line-color</code>
+          <code class="dark:text-teal-200">data-line-color</code>
           <input type="color" v-model="config.dataLineColor" ref="dataLineColor"/>
         </label>
         <Tooltip :target="dataLineColor">
@@ -757,7 +757,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-area-color</code>
+          <code class="dark:text-teal-200">data-area-color</code>
           <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
         </label>
         <Tooltip :target="dataAreaColor">
@@ -765,13 +765,13 @@ function renderNext() {
             Set the color of the area
         </Tooltip>
 
-        <label class="flex flex-col dark:text-red-200">
+        <label class="flex flex-col dark:text-teal-200">
           (show area)
           <input class="accent-red-100" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
         </label>
 
         <label class="flex flex-col" ref="dataLineThickness">
-          <code class="dark:text-red-200">data-line-thickness</code>
+          <code class="dark:text-teal-200">data-line-thickness</code>
           <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
         </label>
         <Tooltip :target="dataLineThickness">
@@ -780,7 +780,7 @@ function renderNext() {
         </Tooltip>
 
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-plot-color</code>
+          <code class="dark:text-teal-200">data-plot-color</code>
           <input type="color" v-model="config.dataPlotColor" ref="dataPlotColor"/>
         </label>
         <Tooltip :target="dataPlotColor">
@@ -788,7 +788,7 @@ function renderNext() {
         </Tooltip>
 
         <label class="flex flex-col" ref="dataPlotRadius">
-          <code class="dark:text-red-200">data-plot-radius</code>
+          <code class="dark:text-teal-200">data-plot-radius</code>
           <input type="number" v-model="config.dataPlotRadius" :min="0"/>
         </label>
         <Tooltip :target="dataPlotRadius">
@@ -796,7 +796,7 @@ function renderNext() {
         </Tooltip>
 
         <label class="flex flex-col" ref="dataHidePlotsAbove">
-          <code class="dark:text-red-200">data-hide-plots-above</code>
+          <code class="dark:text-teal-200">data-hide-plots-above</code>
           <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
         </label>
         <Tooltip :target="dataHidePlotsAbove">
@@ -804,7 +804,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col" ref="dataNumberRounding">
-          <code class="dark:text-red-200">data-number-rounding</code>
+          <code class="dark:text-teal-200">data-number-rounding</code>
           <input type="number" v-model="config.dataNumberRounding" :min="0"/>
         </label>
         <Tooltip :target="dataNumberRounding">
@@ -812,7 +812,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-indicator-color</code>
+          <code class="dark:text-teal-200">data-indicator-color</code>
           <input type="color" v-model="config.dataIndicatorColor" ref="dataIndicatorColor"/>
         </label>
         <Tooltip :target="dataIndicatorColor">
@@ -820,7 +820,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col" ref="dataIndicatorWidth">
-          <code class="dark:text-red-200">data-indicator-width</code>
+          <code class="dark:text-teal-200">data-indicator-width</code>
           <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
         </label>
         <Tooltip :target="dataIndicatorWidth">
@@ -828,7 +828,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col" ref="dataShowLastValue">
-          <code class="dark:text-red-200">data-show-last-value</code>
+          <code class="dark:text-teal-200">data-show-last-value</code>
           <BaseSelect
             v-model="config.dataShowLastValue"
             tooltip
@@ -844,7 +844,7 @@ function renderNext() {
         </label>
         
         <label class="flex flex-col" ref="dataLastValueFontSize">
-          <code class="dark:text-red-200">data-last-value-font-size</code>
+          <code class="dark:text-teal-200">data-last-value-font-size</code>
           <input type="number" v-model="config.dataLastValueFontSize" :min="6"/>
         </label>
         <Tooltip :target="dataLastValueFontSize">
@@ -852,7 +852,7 @@ function renderNext() {
         </Tooltip>
         
         <label class="flex flex-col">
-          <code class="dark:text-red-200">data-last-value-color</code>
+          <code class="dark:text-teal-200">data-last-value-color</code>
           <input type="color" v-model="config.dataLastValueColor" ref="dataLastValueColor"/>
         </label>
         <Tooltip :target="dataLastValueColor">
@@ -860,7 +860,7 @@ function renderNext() {
         </Tooltip>
       </fieldset>
 
-      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-red-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-red-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-red-300">RESET</button>
+      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300">RESET</button>
     </section>
 
     <h2 class="mb-6 text-xl dark:text-gray-400 mt-12">
@@ -927,7 +927,7 @@ function renderNext() {
       </div>
     </div>
 
-    <hr class="mb-12 border-red-100 dark:border-gray-700"/>
+    <hr class="mb-12 border-teal-100 dark:border-gray-700"/>
 
     <div class="p-2 bg-app-grey-light w-full max-w-[600px] mb-24 mx-auto">
       <div class="pl-2 pb-4 text-xs dark:text-gray-400">
@@ -940,8 +940,8 @@ function renderNext() {
               class="tiny-spark" 
               data-curve="true"
               data-animation="true"
-              :data-line-color="isDarkMode ? '#FCA5A5' : '#4A4A4A'"
-              :data-area-color="isDarkMode ? '#FCA5A510' : '#00FF0010'"
+              :data-line-color="isDarkMode ? '#14b8a6' : '#4A4A4A'"
+              :data-area-color="isDarkMode ? '#14b8a610' : '#00FF0010'"
               data-line-thickness="2"
               data-responsive
               :data-plot-color="isDarkMode ? 'rgb(170,180,180)' : '#2A2A2A'"
@@ -949,18 +949,18 @@ function renderNext() {
               data-hide-plots-above="6"
               data-number-locale="en-US"
               data-number-rounding="0"
-              :data-indicator-color="isDarkMode ? '#FCA5A540' : '#8A8A8A'"
+              :data-indicator-color="isDarkMode ? '#14b8a640' : '#8A8A8A'"
               data-indicator-width="1"
               :data-set="history.dataset"
               :data-dates="history.dates"
               data-show-last-value="true"
-              :data-last-value-color="isDarkMode ? '#FCA5A5' : '#4A4A4A'"
+              :data-last-value-color="isDarkMode ? '#14b8a6' : '#4A4A4A'"
               :data-tooltip-smoothing="1"
             />
           </div>
         </div>
         <p class="text-[#ffdfdf] dark:text-gray-400 mt-12">
-          The tour was made using <a class="text-black dark:text-[#FCA5A5] underline" href="https://target-highlight.graphieros.com/" target="_blank">target-highlight</a>
+          The tour was made using <a class="text-black dark:text-[#14b8a6] underline" href="https://target-highlight.graphieros.com/" target="_blank">target-highlight</a>
         </p>
     </div>
   </main>
@@ -975,12 +975,12 @@ function renderNext() {
         transform: 'translate(-50%, -50%)'
       }"
     >
-      <CheckIcon class="text-[#7A6A6A] dark:text-[#FCA5A5]" size="100"/>
+      <CheckIcon class="text-[#7A6A6A] dark:text-[#14b8a6]" size="100"/>
     </div>
   </transition>
 
   <footer class="flex flex-col justify-between place-items-center pb-12">
-    <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-red-300">
+    <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-teal-300">
         <TinySparkLogo :size="29"/>
           tiny-spark
       </div>
@@ -988,10 +988,10 @@ function renderNext() {
         <span class="text-sm dark:text-gray-600">
           MIT license - {{ new Date().getFullYear() }}
       </span>
-        <a class="relative p-1 bg-red-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
+        <a class="relative p-1 bg-teal-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank">
           <BrandGithubFilledIcon/>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-            <StarFilledIcon :size="16" class="text-red-100"/> <span v-if="stars" class="dark:text-red-300">{{ stars }}</span>
+            <StarFilledIcon :size="16" class="text-teal-100"/> <span v-if="stars" class="dark:text-teal-300">{{ stars }}</span>
           </div>
         </a> 
       </div>
@@ -1040,26 +1040,26 @@ input, select {
 }
 
 html.light select{
-  background: #FEE2E230;
-  border: 1px solid #FEE2E2;
+  background: #99f6e430;
+  border: 1px solid #99f6e4;
   color: #1A1A1A;
 }
 
 html.light input{
-  background: #FEE2E230;
-  border: 1px solid #FEE2E2;
+  background: #99f6e430;
+  border: 1px solid #99f6e4;
   color: #1A1A1A;
 }
 
 html.dark select{
-  background: #FEE2E230;
-  border: 1px solid #FEE2E250;
-  color: #FEE2E2;
+  background: #99f6e430;
+  border: 1px solid #99f6e450;
+  color: #99f6e4;
 }
 html.dark input{
-  background: #FEE2E230;
-  border: 1px solid #FEE2E250;
-  color: #FEE2E2;
+  background: #99f6e430;
+  border: 1px solid #99f6e450;
+  color: #99f6e4;
 }
 
 .copy-enter-active {
@@ -1082,7 +1082,7 @@ html.dark input{
 }
 
 .target-highlight-tooltip {
-  background: radial-gradient(at top left, #ffd9d9, #FCA5A5);
+  background: radial-gradient(at top left, #99f6e4, #14b8a6);
   padding: 6px;
   color: #1F1F1F;
   transform: translateY(-4px);
@@ -1100,7 +1100,7 @@ html.dark input{
 
 :root {
   --tooltip-arrow-size: 6px;
-  --tooltip-bg: #FCA5A5;
+  --tooltip-bg: #14b8a6;
 }
 
 /* ─── TOP placement ───
@@ -1158,12 +1158,12 @@ html.dark input{
 #target-highlight-button-previous svg path,
 #target-highlight-button-next svg path {
   transition: fill 0.2s ease, transform 0.2s ease;
-  fill: #b66060;
+  fill: #0f766e;
 }
 
 #target-highlight-button-stop svg path {
   transition: stroke 0.2s ease, transform 0.2s ease;
-  stroke: #b66060;
+  stroke: #0f766e;
 }
 
 #target-highlight-button-previous:hover,
@@ -1192,7 +1192,7 @@ html.dark input{
 }
 
 .stepper {
-  color: #b66060;
+  color: #0f766e;
   font-size: 1.5rem;
   font-weight: bold;
 }

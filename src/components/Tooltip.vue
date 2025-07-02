@@ -90,7 +90,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .tooltip-content {
-    background-color: #fee2e2;
+    background-color: #ccfbf1;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     color: #000;
@@ -106,7 +106,7 @@ onBeforeUnmount(() => {
 }
 
 .tooltip-arrow {
-    background-color: #fee2e2;
+    background-color: #ccfbf1;
     height: 8px;
     left: 50%;
     position: absolute;

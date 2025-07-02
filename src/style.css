@@ -15,7 +15,7 @@
 }
 
 html.light .bg-layer {
-    background: radial-gradient(at top left, rgb(170,180,180), rgb(140,130,130));
+    background: radial-gradient(at top left, rgb(200, 216, 216), #a1b3af);
 }
 
 html.dark .bg-layer {
