@@ -271,7 +271,7 @@ const initConfig = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#14b8a620',
+  dataAreaColor: '#99f6e420',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -291,7 +291,7 @@ const config = ref({
   dataCurve: 'true',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
-  dataAreaColor: '#14b8a620',
+  dataAreaColor: '#99f6e420',
   dataLineThickness: 3,
   dataPlotColor: '#2A2A2A',
   dataPlotRadius: 3,
@@ -676,7 +676,7 @@ function renderNext() {
         <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-teal-300">
           resize
         </div>
-        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-teal-100 dark:bg-red-300 pointer-events-none select-none"/>
+        <div class="absolute bottom-0 right-0 h-[12px] w-[12px] bg-teal-100 dark:bg-teal-300 pointer-events-none select-none"/>
       </div>
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
         <span class="dark:text-gray-400">
