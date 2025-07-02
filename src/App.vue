@@ -1000,11 +1000,21 @@ function renderNext() {
 
 <style>
 .tiny-spark-tooltip {
-  background: radial-gradient(at top left, rgba(170,180,180, 0.9));
   border-radius: 2px;
   box-shadow: 0 6px 3px -3px rgba(0,0,0,0.2);
   padding: 0 8px;
   transform: translateY(-12px);
+  backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+html.light .tiny-spark-tooltip {
+  background: radial-gradient(at top left, rgba(255,255,255, 0.4), transparent);
+}
+
+html.dark .tiny-spark-tooltip {
+  background: radial-gradient(at top left, rgba(255,255,255, 0.2), rgba(255,255,255, 0.1));
+  color: #ccfbf1;
 }
 
 .tiny-spark-tooltip::after {
@@ -1015,6 +1025,14 @@ function renderNext() {
   transform: translateX(-50%);
   border: 6px solid transparent;
   border-top-color: rgba(170,180,180, 0.9);
+}
+
+html.light .tiny-spark-tooltip::after {
+  border-top-color: rgba(255,255,255, 0.5);
+}
+
+html.dark .tiny-spark-tooltip::after {
+  border-top-color: #14b8a6;
 }
 
 html.light .tiny-spark-datapoint-circle {
