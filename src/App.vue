@@ -245,7 +245,11 @@ const codeConfig = ref({
 function makeDs(n) {
   let arr = [];
   for(let i = 0; i < n; i += 1) {
-    arr.push(Math.round(Math.random() * 10000) / 100);
+    if (i > 10 && i < 20) {
+      arr.push(null);
+    } else {
+      arr.push(Math.round(Math.random() * 10000) / 100);
+    }
   }
   return tinyFormat(arr);
 }
@@ -269,6 +273,7 @@ function makeDates(count) {
 
 const initConfig = ref({
   dataCurve: 'true',
+  dataCutNull: 'false',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
   dataAreaColor: '#99f6e420',
@@ -289,6 +294,7 @@ const initConfig = ref({
 
 const config = ref({
   dataCurve: 'true',
+  dataCutNull: 'false',
   dataAnimation: 'true',
   dataLineColor: '#4A4A4A',
   dataAreaColor: '#99f6e420',
@@ -315,8 +321,8 @@ function setArea(e) {
   config.value.dataAreaColor = e.target.value === 'true' ? '#14b8a620' : undefined
 }
 
-const dataset = ref(makeDs(12));
-const dates = ref(makeDates(12));
+const dataset = ref(makeDs(50));
+const dates = ref(makeDates(50));
 
 const installContentNPM = ref(`npm i tiny-spark`);
 const installContentYARN = ref(`yarn add tiny-spark`);
@@ -347,6 +353,7 @@ const codeContent = computed(() => {
       data-set="${dataset.value}"
       data-dates='${dates.value}'
       data-curve="${config.value.dataCurve}"
+      data-cut-null="${config.value.dataCutNull}"
       data-animation="${config.value.dataAnimation}"
       data-line-color="${config.value.dataLineColor}"
       data-area-color="${config.value.dataAreaColor}"
@@ -510,6 +517,7 @@ const dataShowLastValue = ref(null);
 const dataLastValueFontSize = ref(null);
 const dataLastValueColor = ref(null);
 const dataTooltipSmoothing = ref(1);
+const dataCutNull = ref(null);
 
 const snippetsConfig = computed(() => {
   return {
@@ -653,6 +661,7 @@ function renderNext() {
             class="tiny-spark" 
             :data-type="config.dataType"
             :data-curve="config.dataCurve"
+            :data-cut-null="config.dataCutNull"
             :data-animation="config.dataAnimation"
             :data-line-color="config.dataLineColor"
             :data-area-color="config.dataAreaColor"
@@ -681,9 +690,10 @@ function renderNext() {
       <div class="w-full mx-auto max-w-[600px] flex flex-col place-items-center justify-center mt-6 text-lg">
         <span class="dark:text-gray-400">
           The chart is <strong>responsive</strong>. Try resizing the container.<br>
+          You can pass null values, and decide to cut or join them.<br>
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(12)"><AnalyzeFilledIcon class="text-gray-800 dark:text-teal-300 animate-spin"/> Random data</button>
+        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50)"><AnalyzeFilledIcon class="text-gray-800 dark:text-teal-300 animate-spin"/> Random data</button>
       </div>
 
       <fieldset class="border border-solid border-teal-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
@@ -717,6 +727,22 @@ function renderNext() {
           <template #tooltip>
             Line mode only.
             Show the line as a curve (spline)
+          </template>
+        </BaseSelect>
+        </label>
+
+        <label class="flex flex-col" ref="dataCurve">
+          <code class="dark:text-teal-200">data-cut-null</code>
+          <BaseSelect
+            v-model="config.dataCutNull"
+            tooltip
+            :options="[
+              'true',
+              'false'
+            ]"
+          >
+          <template #tooltip>
+            Cut null values
           </template>
         </BaseSelect>
         </label>
