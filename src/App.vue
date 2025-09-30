@@ -291,7 +291,11 @@ const initConfig = ref({
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
   dataType: 'line',
-  dataTooltipSmoothing: 1
+  dataTooltipSmoothing: 1,
+  dataGradientFrom: '#99f6e4',
+  dataGradientTo: '#42d392',
+  dataGradientFromOpacity: 1,
+  dataGradientToOpacity: 0
 });
 
 const config = ref({
@@ -312,7 +316,11 @@ const config = ref({
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
   dataType: 'line',
-  dataTooltipSmoothing: 1
+  dataTooltipSmoothing: 1,
+  dataGradientFrom: '#99f6e4',
+  dataGradientTo: '#42d392',
+  dataGradientFromOpacity: 1,
+  dataGradientToOpacity: 0
 });
 
 function resetConfig() {
@@ -360,6 +368,10 @@ const codeContent = computed(() => {
       data-animation="${config.value.dataAnimation}"
       data-line-color="${config.value.dataLineColor}"
       data-area-color="${config.value.dataAreaColor}"
+      data-gradient-from="${config.value.dataGradientFrom}"
+      data-gradient-to="${config.value.dataGradientTo}"
+      data-gradient-from-opacity="${config.value.dataGradientFromOpacity}"
+      data-gradient-to-opacity="${config.value.dataGradientToOpacity}"
       data-line-thickness="${config.value.dataLineThickness}"
       data-plot-color="${config.value.dataPlotColor}"
       data-plot-radius="${config.value.dataPlotRadius}"
@@ -521,6 +533,10 @@ const dataLastValueFontSize = ref(null);
 const dataLastValueColor = ref(null);
 const dataTooltipSmoothing = ref(1);
 const dataCutNull = ref(null);
+const dataGradientFrom = ref(null);
+const dataGradientTo = ref(null);
+const dataGradientFromOpacity = ref(null);
+const dataGradientToOpacity = ref(null);
 
 const snippetsConfig = computed(() => {
   return {
@@ -604,7 +620,6 @@ function delayRand() {
           data-curve="true"
           data-animation="true"
           :data-line-color="isDarkMode ? '#2dd4bf' : '#3A3A3A'"
-
           data-line-thickness="3"
           data-responsive
           :data-plot-color="isDarkMode ? '#2dd4bf' : '#3A3A3A'"
@@ -725,6 +740,10 @@ function delayRand() {
             :data-animation="config.dataAnimation"
             :data-line-color="config.dataLineColor"
             :data-area-color="config.dataAreaColor"
+            :data-gradient-from="config.dataGradientFrom"
+            :data-gradient-to="config.dataGradientTo"
+            :data-gradient-from-opacity="config.dataGradientFromOpacity"
+            :data-gradient-to-opacity="config.dataGradientToOpacity"
             :data-line-thickness="config.dataLineThickness"
             data-responsive
             :data-plot-color="config.dataPlotColor"
@@ -947,6 +966,38 @@ function delayRand() {
         <Tooltip :target="dataLastValueColor">
             Set the text color of the last value data label
         </Tooltip>
+
+        <label class="flex flex-col">
+          <code class="dark:text-teal-200">data-gradient-from</code>
+          <input type="color" v-model="config.dataGradientFrom" ref="dataGradientFrom"/>
+          <Tooltip :target="dataGradientFrom">
+            Set the gradient "from" color
+        </Tooltip>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-teal-200">data-gradient-to</code>
+          <input type="color" v-model="config.dataGradientTo" ref="dataGradientTo"/>
+          <Tooltip :target="dataGradientTo">
+            Set the gradient "to" color
+        </Tooltip>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-teal-200">data-gradient-from-opacity</code>
+          <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientFromOpacity" ref="dataGradientFromOpacity"/>
+          <Tooltip :target="dataGradientFromOpacity">
+            Set the opacity for the gradient "from" color
+        </Tooltip>
+        </label>
+
+        <label class="flex flex-col">
+          <code class="dark:text-teal-200">data-gradient-to-opacity</code>
+          <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientToOpacity" ref="dataGradientToOpacity"/>
+          <Tooltip :target="dataGradientToOpacity">
+            Set the opacity for the gradient "to" color
+        </Tooltip>
+        </label>
       </fieldset>
 
       <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300">RESET</button>

@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "target-highlight": "^0.10.0",
-    "tiny-spark": "^1.0.0",
+    "tiny-spark": "^1.1.0",
     "vue": "^3.5.13",
     "vue-hi-code": "^1.2.1",
     "vue-tabler-icons": "^2.21.0"
