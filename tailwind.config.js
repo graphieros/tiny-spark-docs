@@ -25,7 +25,14 @@ export default {
         "app-orange-light": "#faa770",
         "app-red": "#ff3700",
         "app-yellow": "#c8c832",
-        "app-gold" : "#fdd663"
+        "app-gold" : "#fdd663",
+        ////////////////////////////////////////
+        "spark-primary": "#FF6A00",
+        "spark-yellow": "#FFD500",
+        "spark-glow": "#FF2E92",
+        "spark-blue": "#0099FF",
+        "spark-charcoal": "#1C1C1E",
+        "spark-gray": "#F2F2F7"
       }
     },
   },

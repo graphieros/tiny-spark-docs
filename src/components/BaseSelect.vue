@@ -133,11 +133,11 @@ html.dark .select-trigger {
 }
 
 .option-item[data-selected="false"]:hover {
-    background-color: #fbd2d2;
+    background-color: #3cd6c4;
 }
 
 .option-item[data-selected="true"] {
-    background-color:  #fdc3c3;
+    background-color:  #14b8a6;
 }
 
 .fade-enter-active,

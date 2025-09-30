@@ -1,7 +1,7 @@
 <template>
     <svg :viewBox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid" :style="svgStyles">
         <linearGradient :id="gradId" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#99f6e410" />
+            <stop offset="0" :stop-color="isDarkMode ? '#99f6e410' : '#4A4A4A'" />
             <stop offset="1" stop-color="#99f6e480" />
         </linearGradient>
         <g>
@@ -21,6 +21,10 @@ const props = defineProps({
     reversed: {
         type: Boolean,
         default: false
+    },
+    isDarkMode: {
+        type: Boolean,
+        default: false,
     }
 })
 
@@ -89,6 +93,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
     if (animationId) cancelAnimationFrame(animationId)
 })
+
 </script>
 
 <style scoped>

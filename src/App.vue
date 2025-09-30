@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, nextTick, watch } from "vue";
-import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, PlayerPlayFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon } from "vue-tabler-icons";
+import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, PlayerPlayFilledIcon, RadioactiveFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon, TimelineIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -20,6 +20,8 @@ const isCopy = ref(false);
 
 const to = ref(null);
 const step = ref(-1);
+
+const js = ref(null)
 
 const tourOptions = computed(() => {
   return {
@@ -331,7 +333,8 @@ const installContentBUN = ref(`bun add tiny-spark`);
 const setupContent = ref(`
 import { render } from "tiny-spark";
 
-// Call it immediately after the DOM is ready. 
+// Call it immediately after the DOM is ready.
+// All charts will be rendered.
 // If your dataset is hardcoded, call it immediately:
 
 render();
@@ -377,8 +380,8 @@ const codeContent = computed(() => {
 const tinyFormatContent = ref(`
 import { render, tinyFormat } from "tiny-spark";
 
-const data = [1, 2, 3, 5, 8];
-const dates = ['01-2026', '02-2026', '03-2026', '04-2026', '05-2026'];
+const data = [1, 2, 3, null, 5, 8]; // null values can be included
+const dates = ['01-2026', '02-2026', '03-2026', '04-2026', '05-2026', '06-2026'];
 
 // Formatted as strings to be passed to the component
 const formattedData = tinyFormat(data);
@@ -543,22 +546,79 @@ function renderNext() {
   nextTick(render)
 }
 
+function makeD(n) {
+  const arr = [];
+  for (let i = 0; i < n; i += 1) {
+    arr.push(`"T ${i}"`)
+  }
+  return `[${arr.join(',')}]`
+}
+
+const isClick = ref(false);
+const isRand = ref(false);
+
+const TO = ref(null)
+function delay() {
+  isClick.value = true;
+  if (TO.value) {
+    clearTimeout(TO.value);
+  }
+  TO.value = setTimeout(() => {
+    isClick.value = false;
+  }, 1000)
+}
+
+function delayRand() {
+  isRand.value = true;
+  if (TO.value) {
+    clearTimeout(TO.value);
+  }
+  TO.value = setTimeout(() => {
+    isRand.value = false;
+  }, 500)
+}
+
 </script>
 
 <template>
   <div class="bg-layer">
-    <Waves gradId="grad1"/>
+    <Waves gradId="grad1" :isDarkMode="isDarkMode"/>
 
   </div>
   <main class="w-full mx-auto max-w-[1200px] px-6">
     <header class="flex flex-row justify-between place-items-center pt-12 pb-2 pr-6">
-      <div class="text-4xl flex flex-row gap-2 place-items-end">
-        <div class="flex flex-row place-items-center gap-2 text-black dark:text-teal-300">
-          <TinySparkLogo :size="29" :color="isDarkMode ? '#ccfbf1' : '#2dd4bf'"/>
-            tiny-spark 
+      <div class="flex flex-row">
+        <div class="text-4xl flex flex-row gap-2 place-items-end">
+          <div class="flex flex-row place-items-center gap-2 text-black dark:text-teal-300">
+            <TinySparkLogo :size="29" :color="isDarkMode ? '#ccfbf1' : '#2dd4bf'"/>
+              tiny-spark 
+          </div>
+          <small class="text-sm text-gray-700 bg-teal-100 dark:bg-teal-800 dark:text-teal-100 dark:border dark:border-teal-500 px-2 rounded-full -translate-y-1">{{ version }}</small>
         </div>
-        <small class="text-sm text-gray-700 bg-teal-100 dark:bg-teal-800 dark:text-teal-100 dark:border dark:border-teal-500 px-2 rounded-full -translate-y-1">{{ version }}</small>
       </div>
+
+      <div class="w-full h-full mx-auto max-w-[624px] px-12">
+        <div
+          class="tiny-spark" 
+          data-type="line"
+          data-curve="true"
+          data-animation="true"
+          :data-line-color="isDarkMode ? '#2dd4bf' : '#3A3A3A'"
+
+          data-line-thickness="3"
+          data-responsive
+          :data-plot-color="isDarkMode ? '#2dd4bf' : '#3A3A3A'"
+          data-plot-radius="4"
+          data-number-locale="en-US"
+          :data-indicator-color="isDarkMode ? '#2dd4bf' : '#3A3A3A'"
+          data-indicator-width="0.5"
+          :data-set="'[-89, 55, -55, 34, -34, 21, -21, 13, -13, 8, -8, 5, -5, 8, -8, 13, -13, 21, -21, 34, -34, 55, -55, 89]'"
+          :data-dates="makeD(38)"
+          data-show-last-value="false"
+          data-tooltip-smoothing="1"
+        />
+      </div>
+
       <div class="flex flex-row place-items-center gap-4">
         <button @click="toggleTheme">
           <SunIcon v-if="isDarkMode" class="text-teal-300"/>
@@ -589,9 +649,9 @@ function renderNext() {
           :content="installContentNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
+            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -603,9 +663,9 @@ function renderNext() {
           :content="installContentYARN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
+            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -617,9 +677,9 @@ function renderNext() {
           :content="installContentPNPM"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
+            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -631,9 +691,9 @@ function renderNext() {
           :content="installContentBUN"
           v-bind="{
             ...codeConfig,
-            backgroundColor: isDarkMode ? '#FFFFFF30'  : '#FFFFFF50',
+            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
             baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#14b8a6' : '#042f2e',
+            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
             fontSize: '0.9rem'
             }"
           language="javascript"
@@ -655,7 +715,7 @@ function renderNext() {
     </div>
 
     <section>
-      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[600px] min-w-[100px] min-h-[100px] mx-auto resize border border-teal-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[1200px] min-w-[100px] min-h-[100px] mx-auto resize border border-teal-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
         <div class="showcase w-full h-full mx-auto">
           <div
             class="tiny-spark" 
@@ -693,7 +753,10 @@ function renderNext() {
           You can pass null values, and decide to cut or join them.<br>
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
-        <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50)"><AnalyzeFilledIcon class="text-gray-800 dark:text-teal-300 animate-spin"/> Random data</button>
+        <div class="flex flex-row gap-4 mt-6">
+          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50); delayRand();"><div class="relative w-6 h-6"><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300`"/><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300 ${isRand ? 'animate-ping' : ''}`"/></div> Random data</button>
+          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50); renderNext(); delay()"><RadioactiveFilledIcon :class="`text-gray-800 dark:text-teal-300 ${isClick ? 'animate-spin' : ''}`"/> Re-render</button>
+        </div>
       </div>
 
       <fieldset class="border border-solid border-teal-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
@@ -793,7 +856,7 @@ function renderNext() {
 
         <label class="flex flex-col dark:text-teal-200">
           (show area)
-          <input class="accent-red-100" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
+          <input class="accent-[#14b8a6]" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
         </label>
 
         <label class="flex flex-col" ref="dataLineThickness">
@@ -1004,6 +1067,24 @@ function renderNext() {
       <CheckIcon class="text-[#7A6A6A] dark:text-[#14b8a6]" size="100"/>
     </div>
   </transition>
+
+  <div class="fixed right-6 top-1/2 -translate-y-1/2 flex-col gap-2 hidden lg:flex">
+    <span class="text-xs text-center text-[#3A3A3A] dark:text-[#CCCCCC]">
+      Stackblitz<br>boilerplates
+    </span>
+      <ButtonLink link="https://stackblitz.com/edit/stackblitz-starters-hvpo2cd4?file=index.html" ref="js">
+        <BrandJavascriptIcon class="text-[#F0DB4F]"/>
+      </ButtonLink>
+        <ButtonLink link="https://stackblitz.com/edit/vitejs-vite-fkayxq4y?file=src%2FApp.jsx">
+          <BrandReactIcon class="text-[#61DAFB]"/>
+        </ButtonLink>
+        <ButtonLink link="https://stackblitz.com/edit/vitejs-vite-lblowhxz?file=src%2FApp.vue">
+          <BrandVueIcon class="text-[#41B883]"/>
+        </ButtonLink>
+        <ButtonLink link="https://stackblitz.com/edit/vitejs-vite-4ezmsecw?file=src%2FApp.svelte">
+          <BrandSvelteIcon class="text-[#FF3E00]"/>
+        </ButtonLink>  
+  </div>
 
   <footer class="flex flex-col justify-between place-items-center pb-12">
     <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-teal-300">
