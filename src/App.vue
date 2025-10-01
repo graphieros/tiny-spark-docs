@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, nextTick, watch } from "vue";
-import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, MoonIcon, PlayerPlayFilledIcon, RadioactiveFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon, TimelineIcon } from "vue-tabler-icons";
+import { AnalyzeFilledIcon, BrandCss3Icon, BrandGithubFilledIcon, BrandHtml5Icon, BrandJavascriptIcon, BrandReactIcon, BrandSvelteIcon, BrandVueIcon, CheckIcon, CopyIcon, DeviceFloppyIcon, MoonIcon, PlayerPlayFilledIcon, RadioactiveFilledIcon, RefreshIcon, SettingsIcon, StarFilledIcon, SunIcon, TimelineIcon } from "vue-tabler-icons";
 import { VueHiCode } from "vue-hi-code";
 import { render, tinyFormat } from "tiny-spark";
 import "vue-hi-code/style.css"
@@ -1146,7 +1146,7 @@ function delayRand() {
         transform: 'translate(-50%, -50%)'
       }"
     >
-      <CheckIcon class="text-[#7A6A6A] dark:text-[#14b8a6]" size="100"/>
+      <DeviceFloppyIcon class="text-[#657573] dark:text-[#14b8a6]" size="100"/>
     </div>
   </transition>
 
