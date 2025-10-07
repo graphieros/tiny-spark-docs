@@ -2,7 +2,7 @@
     <svg :viewBox="`0 0 ${width} ${height}`" preserveAspectRatio="xMidYMid" :style="svgStyles">
         <linearGradient :id="gradId" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" :stop-color="isDarkMode ? '#99f6e410' : '#4A4A4A'" />
-            <stop offset="1" stop-color="#99f6e480" />
+            <stop offset="1" stop-color="#99f6e450" />
         </linearGradient>
         <g>
             <path v-for="(d, i) in wavePaths" :key="i" :d="d" :fill="`url(#${gradId})`" opacity="0.5" />
@@ -32,7 +32,8 @@ const svgStyles = computed(() => ({
     shapeRendering: 'auto',
     display: 'block',
     background: 'transparent',
-    transform: props.reversed ? 'rotate(-180deg)' : 'none'
+    transform: props.reversed ? 'rotate(-180deg)' : 'none',
+    zIndex: 10
 }))
 
 const width = ref(window.innerWidth)

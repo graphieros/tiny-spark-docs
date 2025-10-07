@@ -14,6 +14,7 @@ import IconJs from "./components/IconJs.vue";
 import IconHtml from "./components/IconHtml.vue";
 import IconCss from "./components/IconCss.vue";
 import { targetHighlight, targetHide, applyStepListeners } from "target-highlight";
+import BaseCard from "./components/BaseCard.vue";
 
 const isDarkMode = ref(false);
 const isCopy = ref(false);
@@ -628,7 +629,9 @@ function delayRand() {
     </svg>
   </div>
 
-  <div class="bg-layer relative">
+  <div class="bg-layer pointer-events-none"></div>
+
+  <div class="relative pointer-events-none">
     <Waves gradId="grad1" :isDarkMode="isDarkMode"/>
   </div>
 
@@ -666,16 +669,18 @@ function delayRand() {
       </div>
 
       <div class="flex flex-row place-items-center gap-4">
-        <button @click="toggleTheme">
+        <button @click="toggleTheme" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)] rounded-full p-2 bg-gray-200 dark:bg-[#1A1A1A] hover:bg-gray-100 dark:hover:bg-[#2A2A2A] transition-colors">
           <SunIcon v-if="isDarkMode" class="text-teal-300"/>
           <MoonIcon v-else/>
         </button>
 
-        <a class="relative p-1 bg-teal-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank" data-step="6">
-          <BrandGithubFilledIcon/>
+        <a class="relative bg-teal-100 rounded-full hover:shadow-md transition-all" href="https://github.com/graphieros/tiny-spark" target="_blank" data-step="6">
+          <div class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)] rounded-full p-2 bg-gray-200 dark:bg-[#1A1A1A] hover:bg-gray-100 text-[#3A3A3A] dark:text-teal-300 dark:hover:bg-[#2A2A2A] transition-colors">
+            <BrandGithubFilledIcon/>
+          </div>
           <div class="absolute top-0 pl-1 left-[100%] text-xs flex flex-row place-items-center gap-0.5">
-              <StarFilledIcon :size="16" class="text-teal-100"/> <span v-if="stars" class="dark:text-teal-300">{{ stars }}</span>
-            </div>
+            <StarFilledIcon :size="16" class="text-teal-100 dark:text-teal-100"/> <span v-if="stars" class="dark:text-teal-300">{{ stars }}</span>
+          </div>
         </a>
       </div>
     </header>
@@ -683,114 +688,126 @@ function delayRand() {
     <h1 class="pl-8 mb-6 max-w-[32ch] text-gray-700 dark:text-gray-500">An elegant, reactive and responsive sparkline chart solution without dependency.</h1>
 
     <button
-          class="ml-8 mb-12 shadow-md bg-gradient-to-br from-[#99f6e4] to-[#14b8a6] hover:from-[#14b8a6] hover:to-[#99f6e4] transition-colors text-black rounded py-3 px-5 pr-7 mt-6 flex flex-row gap-2 place-items-center"
+          class="ml-8 mb-12 bg-gradient-to-br from-[#99f6e4] to-[#14b8a6] hover:from-[#14b8a6] hover:to-[#99f6e4] transition-colors text-black rounded-full py-3 px-5 pr-7 mt-6 flex flex-row gap-2 place-items-center shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#CCCCCC,0_4px_6px_rgba(0,0,0,0.5)]"
           @click="takeTheTour">
           <PlayerPlayFilledIcon class="text-[#19313d]"/>
           TAKE THE TOUR
       </button>
 
     <div class="mx-auto w-fit flex flex-row gap-2 flex-wrap justify-center mb-12" data-step="0">
-      <div class="w-[200px]">
-        <VueHiCode
-          :content="installContentNPM"
-          v-bind="{
-            ...codeConfig,
-            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
-            fontSize: '0.9rem'
-            }"
-          language="javascript"
-          @copy="triggerCopy"
-        />
+      <div class="w-[248px]">
+        <BaseCard type="dark" funky>
+          <VueHiCode
+            :content="installContentNPM"
+            v-bind="{
+              ...codeConfig,
+              backgroundColor: isDarkMode ? '#99f6e430'  : '#f3f4f6',
+              baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+              copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
+              fontSize: '0.9rem'
+              }"
+            language="javascript"
+            @copy="triggerCopy"
+          />
+        </BaseCard>
       </div>
-      <div class="w-[225px]">
-        <VueHiCode
-          :content="installContentYARN"
-          v-bind="{
-            ...codeConfig,
-            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
-            fontSize: '0.9rem'
-            }"
-          language="javascript"
-          @copy="triggerCopy"
-        />
+      <div class="w-[273px]">
+        <BaseCard type="dark" funky>
+          <VueHiCode
+            :content="installContentYARN"
+            v-bind="{
+              ...codeConfig,
+              backgroundColor: isDarkMode ? '#99f6e430'  : '#f3f4f6',
+              baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+              copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
+              fontSize: '0.9rem'
+              }"
+            language="javascript"
+            @copy="triggerCopy"
+          />
+        </BaseCard>
       </div>
-      <div class="w-[225px]">
-        <VueHiCode
-          :content="installContentPNPM"
-          v-bind="{
-            ...codeConfig,
-            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
-            fontSize: '0.9rem'
-            }"
-          language="javascript"
-          @copy="triggerCopy"
-        />
+      <div class="w-[273px]">
+        <BaseCard type="dark" funky>
+          <VueHiCode
+            :content="installContentPNPM"
+            v-bind="{
+              ...codeConfig,
+              backgroundColor: isDarkMode ? '#99f6e430'  : '#f3f4f6',
+              baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+              copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
+              fontSize: '0.9rem'
+              }"
+            language="javascript"
+            @copy="triggerCopy"
+          />
+        </BaseCard>
       </div>
-      <div class="w-[220px]">
-        <VueHiCode
-          :content="installContentBUN"
-          v-bind="{
-            ...codeConfig,
-            backgroundColor: isDarkMode ? '#99f6e430'  : '#FFFFFF50',
-            baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
-            copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
-            fontSize: '0.9rem'
-            }"
-          language="javascript"
-          @copy="triggerCopy"
-        />
+      <div class="w-[268px]">
+        <BaseCard type="dark" funky>
+          <VueHiCode
+            :content="installContentBUN"
+            v-bind="{
+              ...codeConfig,
+              backgroundColor: isDarkMode ? '#99f6e430'  : '#f3f4f6',
+              baseTextColor: isDarkMode ? '#CCCCCC' : '#1A1A1A',
+              copyIconColor: isDarkMode ? '#99f6e4' : '#042f2e',
+              fontSize: '0.9rem'
+              }"
+            language="javascript"
+            @copy="triggerCopy"
+          />
+        </BaseCard>
       </div>
     </div>
 
-    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="1">
-      <IconJs class="shadow-md"/>
-      <VueHiCode
-        :content="setupContent"
-        v-bind="{
-          ...snippetsConfig,
-        }"
-        language="javascript"
-        @copy="triggerCopy"
-      />
+    <div class="w-full max-w-[600px] mx-auto mb-12 dark:border dark:border-gray-700 rounded-2xl shadow-md" data-step="1">
+      <BaseCard type="dark" :funky="isDarkMode">
+        <IconJs class="shadow-md"/>
+        <VueHiCode
+          :content="setupContent"
+          v-bind="{
+            ...snippetsConfig,
+          }"
+          language="javascript"
+          @copy="triggerCopy"
+        />
+      </BaseCard>
     </div>
 
     <section>
-      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[1200px] min-w-[100px] min-h-[100px] mx-auto resize border border-teal-100 dark:border-gray-600 border-dashed overflow-auto" data-step="5">
+      <div class="relative p-6 bg-app-grey w-full h-[200px] max-w-[1200px] min-w-[100px] min-h-[100px] mx-auto resize border border-teal-100 dark:border-gray-600 border-dashed overflow-auto rounded-t-2xl rounded-bl-2xl" data-step="5">
         <div class="showcase w-full h-full mx-auto">
-          <div
-            class="tiny-spark" 
-            :data-type="config.dataType"
-            :data-curve="config.dataCurve"
-            :data-cut-null="config.dataCutNull"
-            :data-animation="config.dataAnimation"
-            :data-line-color="config.dataLineColor"
-            :data-area-color="config.dataAreaColor"
-            :data-gradient-from="config.dataGradientFrom"
-            :data-gradient-to="config.dataGradientTo"
-            :data-gradient-from-opacity="config.dataGradientFromOpacity"
-            :data-gradient-to-opacity="config.dataGradientToOpacity"
-            :data-line-thickness="config.dataLineThickness"
-            data-responsive
-            :data-plot-color="config.dataPlotColor"
-            :data-plot-radius="config.dataPlotRadius"
-            :data-hide-plots-above="config.dataHidePlotsAbove"
-            data-number-locale="en-US"
-            :data-number-rounding="config.dataNumberRounding"
-            :data-indicator-color="config.dataIndicatorColor"
-            :data-indicator-width="config.dataIndicatorWidth"
-            :data-set="dataset"
-            :data-dates="dates"
-            :data-show-last-value="config.dataShowLastValue"
-            :data-last-value-font-size="config.dataLastValueFontSize"
-            :data-last-value-color="config.dataLastValueColor"
-            :data-tooltip-smoothing="config.dataTooltipSmoothing"
-          />
+          <BaseCard class="h-full" type="dark" funky>
+            <div
+              class="tiny-spark" 
+              :data-type="config.dataType"
+              :data-curve="config.dataCurve"
+              :data-cut-null="config.dataCutNull"
+              :data-animation="config.dataAnimation"
+              :data-line-color="config.dataLineColor"
+              :data-area-color="config.dataAreaColor"
+              :data-gradient-from="config.dataGradientFrom"
+              :data-gradient-to="config.dataGradientTo"
+              :data-gradient-from-opacity="config.dataGradientFromOpacity"
+              :data-gradient-to-opacity="config.dataGradientToOpacity"
+              :data-line-thickness="config.dataLineThickness"
+              data-responsive
+              :data-plot-color="config.dataPlotColor"
+              :data-plot-radius="config.dataPlotRadius"
+              :data-hide-plots-above="config.dataHidePlotsAbove"
+              data-number-locale="en-US"
+              :data-number-rounding="config.dataNumberRounding"
+              :data-indicator-color="config.dataIndicatorColor"
+              :data-indicator-width="config.dataIndicatorWidth"
+              :data-set="dataset"
+              :data-dates="dates"
+              :data-show-last-value="config.dataShowLastValue"
+              :data-last-value-font-size="config.dataLastValueFontSize"
+              :data-last-value-color="config.dataLastValueColor"
+              :data-tooltip-smoothing="config.dataTooltipSmoothing"
+            />
+          </BaseCard>
         </div>
         <div class="absolute bottom-1 right-5 pointer-events-none select-none text-xs flex flex-row place-items-center gap-1 dark:text-teal-300">
           resize
@@ -804,234 +821,236 @@ function delayRand() {
           The chart is <strong>reactive</strong>. Dynamic change in data attributes will trigger an update. Try it out:
         </span>
         <div class="flex flex-row gap-4 mt-6">
-          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50); delayRand();"><div class="relative w-6 h-6"><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300`"/><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300 ${isRand ? 'animate-ping' : ''}`"/></div> Random data</button>
-          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300" @click="dataset = makeDs(50); renderNext(); delay()"><RadioactiveFilledIcon :class="`text-gray-800 dark:text-teal-300 ${isClick ? 'animate-spin' : ''}`"/> Re-render</button>
+          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-2 px-4 rounded-full hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)] transition-all dark:text-teal-300" @click="dataset = makeDs(50); delayRand();"><div class="relative w-6 h-6"><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300`"/><TimelineIcon :class="`absolute text-gray-800 dark:text-teal-300 ${isRand ? 'animate-ping' : ''}`"/></div> Random data</button>
+          <button class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-2 px-4 rounded-full hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)] transition-all dark:text-teal-300" @click="dataset = makeDs(50); renderNext(); delay()"><RadioactiveFilledIcon :class="`text-gray-800 dark:text-teal-300 ${isClick ? 'animate-spin' : ''}`"/> Re-render</button>
         </div>
       </div>
 
-      <fieldset class="border border-solid border-teal-100 dark:border-transparent p-5 rounded mt-6 flex flex-row gap-4 flex-wrap bg-[#FFFFFF20] glassed" data-step="3">
-        <legend class="px-2 flex flex-row gap-2 dark:text-teal-200"><SettingsIcon class="text-teal-100"/> <strong>Configuration options</strong></legend>
-        <label class="flex flex-col" ref="dataCurve">
-          <code class="dark:text-teal-200">data-type</code>
-          <BaseSelect
-            v-model="config.dataType"
-            tooltip
-            :options="[
-              'line',
-              'bar'
-            ]"
-          >
-          <template #tooltip>
-            Show a line chart or a bar chart
-          </template>
-        </BaseSelect>
-        </label>
-
-        <label class="flex flex-col" ref="dataCurve">
-          <code class="dark:text-teal-200">data-curve</code>
-          <BaseSelect
-            v-model="config.dataCurve"
-            tooltip
-            :options="[
-              'true',
-              'false'
-            ]"
-          >
-          <template #tooltip>
+      <BaseCard class="my-6" funky>
+        <fieldset class="border border-solid border-teal-100 dark:border-transparent p-5 rounded-xl flex flex-row gap-4 flex-wrap bg-gray-200 dark:bg-[#2A2A2A] glassed shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)]" data-step="3">
+          <legend class="px-2 flex flex-row gap-2 dark:text-teal-200"><SettingsIcon class="text-teal-100"/> <strong>Configuration options</strong></legend>
+          <label class="flex flex-col" ref="dataCurve">
+            <code class="dark:text-teal-200">data-type</code>
+            <BaseSelect
+              v-model="config.dataType"
+              tooltip
+              :options="[
+                'line',
+                'bar'
+              ]"
+            >
+            <template #tooltip>
+              Show a line chart or a bar chart
+            </template>
+          </BaseSelect>
+          </label>
+  
+          <label class="flex flex-col" ref="dataCurve">
+            <code class="dark:text-teal-200">data-curve</code>
+            <BaseSelect
+              v-model="config.dataCurve"
+              tooltip
+              :options="[
+                'true',
+                'false'
+              ]"
+            >
+            <template #tooltip>
+              Line mode only.
+              Show the line as a curve (spline)
+            </template>
+          </BaseSelect>
+          </label>
+  
+          <label class="flex flex-col" ref="dataCurve">
+            <code class="dark:text-teal-200">data-cut-null</code>
+            <BaseSelect
+              v-model="config.dataCutNull"
+              tooltip
+              :options="[
+                'true',
+                'false'
+              ]"
+            >
+            <template #tooltip>
+              Cut null values
+            </template>
+          </BaseSelect>
+          </label>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-animation</code>
+            <BaseSelect
+              v-model="config.dataAnimation"
+              tooltip
+              :options="[
+                'true',
+                'false'
+              ]"
+              @change="renderNext"
+            >
+            <template #tooltip>
+              Animate the chart on load
+            </template>
+          </BaseSelect>
+          </label>
+  
+          <label class="flex flex-col" ref="dataTooltipSmoothing">
+            <code class="dark:text-teal-200">data-tooltip-smoothing</code>
+            <input type="number" v-model="config.dataTooltipSmoothing" :min="0" :max="2" :step="0.01"/>
+          </label>
+          <Tooltip :target="dataTooltipSmoothing">
+            Set the smoothing transition of the tooltip.
+            The lower the slower.
+          </Tooltip>
+          
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-line-color</code>
+            <input type="color" v-model="config.dataLineColor" ref="dataLineColor"/>
+          </label>
+          <Tooltip :target="dataLineColor">
             Line mode only.
-            Show the line as a curve (spline)
-          </template>
-        </BaseSelect>
-        </label>
+            Set the color of the line
+          </Tooltip>
+          
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-area-color</code>
+            <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
+          </label>
+          <Tooltip :target="dataAreaColor">
+            Line mode only.
+              Set the color of the area
+          </Tooltip>
+  
+          <label class="flex flex-col dark:text-teal-200">
+            (show area)
+            <input class="accent-[#14b8a6]" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
+          </label>
+  
+          <label class="flex flex-col" ref="dataLineThickness">
+            <code class="dark:text-teal-200">data-line-thickness</code>
+            <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
+          </label>
+          <Tooltip :target="dataLineThickness">
+            Line mode only.  
+            Set the thickness of the line (stroke width)
+          </Tooltip>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-plot-color</code>
+            <input type="color" v-model="config.dataPlotColor" ref="dataPlotColor"/>
+          </label>
+          <Tooltip :target="dataPlotColor">
+              Set the fill color of datapoint circles or bars. To change the stroke color, use css (target the <code><b>.tiny-spark-datapoint-circle</b></code> css class for the line chart, or <code><b>.tiny-spark-datapoint-bar</b></code> for the bar chart)
+          </Tooltip>
+  
+          <label class="flex flex-col" ref="dataPlotRadius">
+            <code class="dark:text-teal-200">data-plot-radius</code>
+            <input type="number" v-model="config.dataPlotRadius" :min="0"/>
+          </label>
+          <Tooltip :target="dataPlotRadius">
+              Set the radius of datapoint circles
+          </Tooltip>
+  
+          <label class="flex flex-col" ref="dataHidePlotsAbove">
+            <code class="dark:text-teal-200">data-hide-plots-above</code>
+            <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
+          </label>
+          <Tooltip :target="dataHidePlotsAbove">
+              Hide datapoint circles when the number of datapoints exceeds this number
+          </Tooltip>
+          
+          <label class="flex flex-col" ref="dataNumberRounding">
+            <code class="dark:text-teal-200">data-number-rounding</code>
+            <input type="number" v-model="config.dataNumberRounding" :min="0"/>
+          </label>
+          <Tooltip :target="dataNumberRounding">
+              Set the number of decimals for data labels
+          </Tooltip>
+          
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-indicator-color</code>
+            <input type="color" v-model="config.dataIndicatorColor" ref="dataIndicatorColor"/>
+          </label>
+          <Tooltip :target="dataIndicatorColor">
+              Set the stroke color of the indicator
+          </Tooltip>
+          
+          <label class="flex flex-col" ref="dataIndicatorWidth">
+            <code class="dark:text-teal-200">data-indicator-width</code>
+            <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
+          </label>
+          <Tooltip :target="dataIndicatorWidth">
+              Set the stroke width of the indicator
+          </Tooltip>
+          
+          <label class="flex flex-col" ref="dataShowLastValue">
+            <code class="dark:text-teal-200">data-show-last-value</code>
+            <BaseSelect
+              v-model="config.dataShowLastValue"
+              tooltip
+              :options="[
+                'true',
+                'false'
+              ]"
+            >
+            <template #tooltip>
+              Show a data label for the last value
+            </template>
+          </BaseSelect>
+          </label>
+          
+          <label class="flex flex-col" ref="dataLastValueFontSize">
+            <code class="dark:text-teal-200">data-last-value-font-size</code>
+            <input type="number" v-model="config.dataLastValueFontSize" :min="6"/>
+          </label>
+          <Tooltip :target="dataLastValueFontSize">
+              Set the font size of the last value data label
+          </Tooltip>
+          
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-last-value-color</code>
+            <input type="color" v-model="config.dataLastValueColor" ref="dataLastValueColor"/>
+          </label>
+          <Tooltip :target="dataLastValueColor">
+              Set the text color of the last value data label
+          </Tooltip>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-from</code>
+            <input type="color" v-model="config.dataGradientFrom" ref="dataGradientFrom"/>
+            <Tooltip :target="dataGradientFrom">
+              Set the gradient "from" color
+          </Tooltip>
+          </label>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-to</code>
+            <input type="color" v-model="config.dataGradientTo" ref="dataGradientTo"/>
+            <Tooltip :target="dataGradientTo">
+              Set the gradient "to" color
+          </Tooltip>
+          </label>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-from-opacity</code>
+            <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientFromOpacity" ref="dataGradientFromOpacity"/>
+            <Tooltip :target="dataGradientFromOpacity">
+              Set the opacity for the gradient "from" color
+          </Tooltip>
+          </label>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-to-opacity</code>
+            <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientToOpacity" ref="dataGradientToOpacity"/>
+            <Tooltip :target="dataGradientToOpacity">
+              Set the opacity for the gradient "to" color
+          </Tooltip>
+          </label>
+        </fieldset>
+        <button @click="resetConfig" class="mx-auto mt-5 flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded-full hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300 shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)]">RESET</button>
+      </BaseCard>
 
-        <label class="flex flex-col" ref="dataCurve">
-          <code class="dark:text-teal-200">data-cut-null</code>
-          <BaseSelect
-            v-model="config.dataCutNull"
-            tooltip
-            :options="[
-              'true',
-              'false'
-            ]"
-          >
-          <template #tooltip>
-            Cut null values
-          </template>
-        </BaseSelect>
-        </label>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-animation</code>
-          <BaseSelect
-            v-model="config.dataAnimation"
-            tooltip
-            :options="[
-              'true',
-              'false'
-            ]"
-            @change="renderNext"
-          >
-          <template #tooltip>
-            Animate the chart on load
-          </template>
-        </BaseSelect>
-        </label>
-
-        <label class="flex flex-col" ref="dataTooltipSmoothing">
-          <code class="dark:text-teal-200">data-tooltip-smoothing</code>
-          <input type="number" v-model="config.dataTooltipSmoothing" :min="0" :max="2" :step="0.01"/>
-        </label>
-        <Tooltip :target="dataTooltipSmoothing">
-          Set the smoothing transition of the tooltip.
-          The lower the slower.
-        </Tooltip>
-        
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-line-color</code>
-          <input type="color" v-model="config.dataLineColor" ref="dataLineColor"/>
-        </label>
-        <Tooltip :target="dataLineColor">
-          Line mode only.
-          Set the color of the line
-        </Tooltip>
-        
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-area-color</code>
-          <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
-        </label>
-        <Tooltip :target="dataAreaColor">
-          Line mode only.
-            Set the color of the area
-        </Tooltip>
-
-        <label class="flex flex-col dark:text-teal-200">
-          (show area)
-          <input class="accent-[#14b8a6]" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
-        </label>
-
-        <label class="flex flex-col" ref="dataLineThickness">
-          <code class="dark:text-teal-200">data-line-thickness</code>
-          <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
-        </label>
-        <Tooltip :target="dataLineThickness">
-          Line mode only.  
-          Set the thickness of the line (stroke width)
-        </Tooltip>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-plot-color</code>
-          <input type="color" v-model="config.dataPlotColor" ref="dataPlotColor"/>
-        </label>
-        <Tooltip :target="dataPlotColor">
-            Set the fill color of datapoint circles or bars. To change the stroke color, use css (target the <code><b>.tiny-spark-datapoint-circle</b></code> css class for the line chart, or <code><b>.tiny-spark-datapoint-bar</b></code> for the bar chart)
-        </Tooltip>
-
-        <label class="flex flex-col" ref="dataPlotRadius">
-          <code class="dark:text-teal-200">data-plot-radius</code>
-          <input type="number" v-model="config.dataPlotRadius" :min="0"/>
-        </label>
-        <Tooltip :target="dataPlotRadius">
-            Set the radius of datapoint circles
-        </Tooltip>
-
-        <label class="flex flex-col" ref="dataHidePlotsAbove">
-          <code class="dark:text-teal-200">data-hide-plots-above</code>
-          <input type="number" v-model="config.dataHidePlotsAbove" :min="0"/>
-        </label>
-        <Tooltip :target="dataHidePlotsAbove">
-            Hide datapoint circles when the number of datapoints exceeds this number
-        </Tooltip>
-        
-        <label class="flex flex-col" ref="dataNumberRounding">
-          <code class="dark:text-teal-200">data-number-rounding</code>
-          <input type="number" v-model="config.dataNumberRounding" :min="0"/>
-        </label>
-        <Tooltip :target="dataNumberRounding">
-            Set the number of decimals for data labels
-        </Tooltip>
-        
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-indicator-color</code>
-          <input type="color" v-model="config.dataIndicatorColor" ref="dataIndicatorColor"/>
-        </label>
-        <Tooltip :target="dataIndicatorColor">
-            Set the stroke color of the indicator
-        </Tooltip>
-        
-        <label class="flex flex-col" ref="dataIndicatorWidth">
-          <code class="dark:text-teal-200">data-indicator-width</code>
-          <input type="number" v-model="config.dataIndicatorWidth" :min="0"/>
-        </label>
-        <Tooltip :target="dataIndicatorWidth">
-            Set the stroke width of the indicator
-        </Tooltip>
-        
-        <label class="flex flex-col" ref="dataShowLastValue">
-          <code class="dark:text-teal-200">data-show-last-value</code>
-          <BaseSelect
-            v-model="config.dataShowLastValue"
-            tooltip
-            :options="[
-              'true',
-              'false'
-            ]"
-          >
-          <template #tooltip>
-            Show a data label for the last value
-          </template>
-        </BaseSelect>
-        </label>
-        
-        <label class="flex flex-col" ref="dataLastValueFontSize">
-          <code class="dark:text-teal-200">data-last-value-font-size</code>
-          <input type="number" v-model="config.dataLastValueFontSize" :min="6"/>
-        </label>
-        <Tooltip :target="dataLastValueFontSize">
-            Set the font size of the last value data label
-        </Tooltip>
-        
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-last-value-color</code>
-          <input type="color" v-model="config.dataLastValueColor" ref="dataLastValueColor"/>
-        </label>
-        <Tooltip :target="dataLastValueColor">
-            Set the text color of the last value data label
-        </Tooltip>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-gradient-from</code>
-          <input type="color" v-model="config.dataGradientFrom" ref="dataGradientFrom"/>
-          <Tooltip :target="dataGradientFrom">
-            Set the gradient "from" color
-        </Tooltip>
-        </label>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-gradient-to</code>
-          <input type="color" v-model="config.dataGradientTo" ref="dataGradientTo"/>
-          <Tooltip :target="dataGradientTo">
-            Set the gradient "to" color
-        </Tooltip>
-        </label>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-gradient-from-opacity</code>
-          <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientFromOpacity" ref="dataGradientFromOpacity"/>
-          <Tooltip :target="dataGradientFromOpacity">
-            Set the opacity for the gradient "from" color
-        </Tooltip>
-        </label>
-
-        <label class="flex flex-col">
-          <code class="dark:text-teal-200">data-gradient-to-opacity</code>
-          <input class="accent-[#14b8a6]" type="range" :min="0" :max="1" :step="0.01" v-model="config.dataGradientToOpacity" ref="dataGradientToOpacity"/>
-          <Tooltip :target="dataGradientToOpacity">
-            Set the opacity for the gradient "to" color
-        </Tooltip>
-        </label>
-      </fieldset>
-
-      <button @click="resetConfig" class="flex flex-row gap-2 place-items-center bg-gradient-to-br from-app-bg-grey to-teal-100 dark:from-[rgb(40,30,30)] dark:to-[rgb(30,40,40)] py-1 px-4 rounded hover:from-teal-100 hover:to-app-bg-grey dark:hover:from-[rgb(30,40,40)] dark:hover:to-[rgb(40,30,30)] hover:shadow transition-all dark:text-teal-300">RESET</button>
     </section>
 
     <h2 class="mb-6 text-xl dark:text-gray-400 mt-12">
@@ -1039,43 +1058,49 @@ function delayRand() {
       Except for <span class="border text-sm py-1 px-2 rounded-full"><code>data-set</code></span> all data-attributes are optional.<br>
       Dynamic change in data-attributes will automatically re-render the chart.
     </h2>
-    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="2">
-      <IconHtml class="drop-shadow"/>
-      <VueHiCode
-        :content="codeContent"
-        v-bind="{
-          ...snippetsConfig,
-        }"
-        language="html"
-        @copy="triggerCopy"
-      />
+    <div class="w-full max-w-[800px] mx-auto my-12" data-step="2">
+      <BaseCard type="dark" :funky="isDarkMode">
+        <IconHtml class="drop-shadow"/>
+        <VueHiCode
+          :content="codeContent"
+          v-bind="{
+            ...snippetsConfig,
+          }"
+          language="html"
+          @copy="triggerCopy"
+        />
+      </BaseCard>
     </div>
 
     <h2 class="mb-6 text-xl dark:text-gray-400">tiny-spark is <strong>headless</strong>. Target the following css classes to customize your chart. Here is an example:</h2>
-    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed" data-step="4">
-      <IconCss class="drop-shadow"/>
-      <VueHiCode
-        :content="cssContent"
-        v-bind="{
-          ...snippetsConfig,
-        }"
-        language="css"
-        @copy="triggerCopy"
-      />
+    <div class="w-full max-w-[800px] mx-auto my-12" data-step="4">
+      <BaseCard type="dark" :funky="isDarkMode">
+        <IconCss class="drop-shadow"/>
+        <VueHiCode
+          :content="cssContent"
+          v-bind="{
+            ...snippetsConfig,
+          }"
+          language="css"
+          @copy="triggerCopy"
+        />
+      </BaseCard>
     </div>
 
 
     <h2 class="mb-6 text-xl dark:text-gray-400">If you are using tiny-spark in a framework, you can use the <strong><code>tinyFormat</code></strong> utility function to prepare the data passed to the <strong><code>data-set</code></strong> and <strong><code>data-dates</code></strong> attributes:</h2>
-    <div class="w-full max-w-[800px] mx-auto my-12 dark:border dark:border-gray-700 rounded-md bg-gradient-to-r from-[#FFFFFF80] to-[#FFFFFF60] dark:from-[#FFFFFF10] dark:to-transparent p-6 shadow-md glassed">
-      <IconJs class="shadow-md"/>
-      <VueHiCode
-        :content="tinyFormatContent"
-        v-bind="{
-          ...snippetsConfig,
-        }"
-        language="javascript"
-        @copy="triggerCopy"
-      />
+    <div class="w-full max-w-[800px] mx-auto my-12">
+      <BaseCard type="dark" :funky="isDarkMode">
+        <IconJs class="shadow-md"/>
+        <VueHiCode
+          :content="tinyFormatContent"
+          v-bind="{
+            ...snippetsConfig,
+          }"
+          language="javascript"
+          @copy="triggerCopy"
+        />
+      </BaseCard>
     </div>
 
     <div class="flex flex-col place-items-center justify-center w-full mx-auto mb-12">
@@ -1130,7 +1155,7 @@ function delayRand() {
             />
           </div>
         </div>
-        <p class="text-[#ffdfdf] dark:text-gray-400 mt-12">
+        <p class="text-[#6A6A6A] dark:text-gray-400 mt-12">
           The tour was made using <a class="text-black dark:text-[#14b8a6] underline" href="https://target-highlight.graphieros.com/" target="_blank">target-highlight</a>
         </p>
     </div>
@@ -1169,7 +1194,7 @@ function delayRand() {
   </div>
 
   <footer class="flex flex-col justify-between place-items-center pb-12">
-    <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-teal-300">
+    <div class="flex flex-row place-items-center gap-2 text-2xl dark:text-teal-300 mb-2">
         <TinySparkLogo :size="29"/>
           tiny-spark
       </div>
@@ -1247,24 +1272,24 @@ input, select {
 }
 
 html.light select{
-  background: #99f6e430;
+  background: #FFFFFF;
   border: 1px solid #99f6e4;
   color: #1A1A1A;
 }
 
 html.light input{
-  background: #99f6e430;
+  background: #FFFFFF;
   border: 1px solid #99f6e4;
   color: #1A1A1A;
 }
 
 html.dark select{
-  background: #99f6e430;
+  background: #1A1A1A;
   border: 1px solid #99f6e450;
   color: #99f6e4;
 }
 html.dark input{
-  background: #99f6e430;
+  background: #1A1A1A;
   border: 1px solid #99f6e450;
   color: #99f6e4;
 }

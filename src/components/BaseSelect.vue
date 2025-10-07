@@ -87,12 +87,12 @@ onBeforeUnmount(() => {
 }
 
 html.light .select-trigger {
-    background-color: #99f6e430;
+    background-color: #FFFFFF;
     border: 1px solid #99f6e4;
     color: #1A1A1A;
 }
 html.dark .select-trigger {
-    background: #99f6e430;
+    background: #1A1A1A;
     border: 1px solid #99f6e450;
     color: #99f6e4;
 }
