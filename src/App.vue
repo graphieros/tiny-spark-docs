@@ -144,9 +144,9 @@ watch(() => step.value, (v) => {
         ${tourContent.value[step.value].tooltip}
       </div>
       <div style="position: relative; height: 36px; border-top: 1px solid #14b8a6; padding-top: 12px; margin-top: 12px;">
-        <button ${step.value === 0 ? 'disabled' : ''} id="target-highlight-button-previous" style="${step.value === 0 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; left: 0; transform: translateY(-40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)]">${icon.chevronLeft}</button>
-        <button ${step.value === maxStep.value - 1 ? 'disabled' : ''} id="target-highlight-button-next" style="${step.value === maxStep.value - 1 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; right: 0; transform: translateY(-40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)]">${icon.chevronRight}</button>
-        <button id="target-highlight-button-stop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_2px_2px_#4A4A4A,0_4px_6px_rgba(0,0,0,0.5)]">${icon.stop}</button>
+        <button ${step.value === 0 ? 'disabled' : ''} id="target-highlight-button-previous" style="${step.value === 0 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; left: 0; transform: translateY(-40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)]">${icon.chevronLeft}</button>
+        <button ${step.value === maxStep.value - 1 ? 'disabled' : ''} id="target-highlight-button-next" style="${step.value === maxStep.value - 1 ? 'opacity: 0.3;' : ''} position: absolute; top: 50%; right: 0; transform: translateY(-40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)]">${icon.chevronRight}</button>
+        <button id="target-highlight-button-stop" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%)" class="shadow-[inset_0_2px_2px_#FFFFFF,0_4px_6px_rgba(0,0,0,0.1)]">${icon.stop}</button>
       </div>
       `
     }
