@@ -96,32 +96,32 @@ const tourContent = ref([
   {
     tooltip: '<div class="stepper">Step 1</div> Install <b>tiny-spark</b> using your preferred package manager',
     forceTooltipPosition: 'top',
-    borderRadius: 8
+    borderRadius: 24
   },
   {
     tooltip: '<div class="stepper">Step 2</div> Import the <code><b>render</b></code> function from "tiny-spark"',
     forceTooltipPosition: 'right',
-    borderRadius: 8
+    borderRadius: 24
   },
   {
     tooltip: '<div class="stepper">Step 3</div> Set up the required <b>tiny-spark</b> class and <b>data-set</b> data-attribute, and optional data attributes to customize the looks of your chart"',
     forceTooltipPosition: 'left',
-    borderRadius: 8
+    borderRadius: 24
   },
   {
     tooltip: '<div class="stepper">Step 4</div> Tweak these knobs to quickly reach your preferred configuration',
     forceTooltipPosition: 'top',
-    padding: '12px 12px 48px 12px',
-    borderRadius: 8
+    borderRadius: 24
   },
   {
     tooltip: '<div class="stepper">Step 5</div> Add your css implementation to customize the looks of the tooltip',
     forceTooltipPosition: 'right',
-    borderRadius: 8
+    borderRadius: 24
   },
   {
     tooltip: '<div class="stepper">Step 6</div> This is how it looks!',
-    forceTooltipPosition: 'top'
+    forceTooltipPosition: 'top',
+    borderRadius: 24
   },
   {
     tooltip: 'Drop a star if you like it :)',
