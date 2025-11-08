@@ -12,8 +12,8 @@
   "dependencies": {
     "target-highlight": "^0.10.0",
     "tiny-spark": "^1.1.0",
-    "vue": "^3.5.13",
-    "vue-hi-code": "^1.2.1",
+    "vue": "^3.5.24",
+    "vue-hi-code": "^1.5.4",
     "vue-tabler-icons": "^2.21.0"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "postcss": "^8.4.27",
     "ssh2": "^1.16.0",
     "tailwindcss": "^3.3.3",
-    "vite": "^7.1.7",
-    "vite-plugin-vue-devtools": "^7.7.7"
+    "vite": "^7.2.2",
+    "vite-plugin-vue-devtools": "^8.0.3"
   }
 }
