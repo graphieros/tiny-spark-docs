@@ -288,6 +288,7 @@ const initConfig = ref({
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
   area: true,
+  useGradient: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
@@ -313,6 +314,7 @@ const config = ref({
   dataIndicatorColor: '#8A8A8A',
   dataIndicatorWidth: 1,
   area: true,
+  useGradient: true,
   dataShowLastValue: 'true',
   dataLastValueFontSize: 12,
   dataLastValueColor: '#1A1A1A',
@@ -329,7 +331,32 @@ function resetConfig() {
 }
 
 function setArea(e) {
-  config.value.dataAreaColor = e.target.value === 'true' ? '#14b8a620' : undefined
+  if (e.target.value == 'true') {
+    config.value.dataAreaColor = initConfig.value.dataAreaColor;
+    if (config.value.useGradient) {
+      config.value.dataGradientFrom = initConfig.value.dataGradientFrom;
+      config.value.dataGradientTo = initConfig.value.dataGradientTo;
+    } else {
+      config.value.dataGradientFrom = undefined;
+      config.value.dataGradientTo = undefined;
+    }
+  } else {
+    config.value.dataAreaColor = undefined;
+    config.value.dataGradientFrom = undefined;
+    config.value.dataGradientTo = undefined;
+  }
+}
+
+function setGradient(e) {
+  if (e.target.value == 'true') {
+    config.value.dataAreaColor = undefined;
+    config.value.dataGradientFrom = initConfig.value.dataGradientFrom;
+    config.value.dataGradientTo = initConfig.value.dataGradientTo;
+  } else {
+    config.value.dataAreaColor = initConfig.value.dataAreaColor;
+    config.value.dataGradientFrom = undefined;
+    config.value.dataGradientTo = undefined;
+  }
 }
 
 const dataset = ref(makeDs(50));
@@ -518,8 +545,6 @@ onMounted(() => {
 });
 
 const dataCurve = ref(null);
-const dataAnimation = ref(null);
-const dataType = ref(null);
 const dataLineColor = ref(null);
 const dataAreaColor = ref(null);
 const dataLineThickness = ref(null);
@@ -533,7 +558,6 @@ const dataShowLastValue = ref(null);
 const dataLastValueFontSize = ref(null);
 const dataLastValueColor = ref(null);
 const dataTooltipSmoothing = ref(1);
-const dataCutNull = ref(null);
 const dataGradientFrom = ref(null);
 const dataGradientTo = ref(null);
 const dataGradientFromOpacity = ref(null);
@@ -912,21 +936,7 @@ function delayRand() {
             Line mode only.
             Set the color of the line
           </Tooltip>
-          
-          <label class="flex flex-col">
-            <code class="dark:text-teal-200">data-area-color</code>
-            <input type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
-          </label>
-          <Tooltip :target="dataAreaColor">
-            Line mode only.
-              Set the color of the area
-          </Tooltip>
-  
-          <label class="flex flex-col dark:text-teal-200">
-            (show area)
-            <input class="accent-[#14b8a6]" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
-          </label>
-  
+
           <label class="flex flex-col" ref="dataLineThickness">
             <code class="dark:text-teal-200">data-line-thickness</code>
             <input type="number" v-model="config.dataLineThickness" :min="1" :max="12"/>
@@ -935,6 +945,40 @@ function delayRand() {
             Line mode only.  
             Set the thickness of the line (stroke width)
           </Tooltip>
+  
+          <label class="flex flex-col dark:text-teal-200">
+            (show area)
+            <input class="accent-[#14b8a6]" type="checkbox" v-model="config.area" :value="config.area" @change="setArea"/>
+          </label>
+
+          <label class="flex flex-col dark:text-teal-200">
+            (use gradient)
+            <input class="accent-[#14b8a6]" type="checkbox" v-model="config.useGradient" :value="config.useGradient" @change="setGradient"/>
+          </label>
+
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-area-color</code>
+            <input :disabled="!config.area || config.useGradient" type="color" v-model="config.dataAreaColor" ref="dataAreaColor"/>
+          </label>
+          <Tooltip :target="dataAreaColor">
+            {{ config.area && !config.useGradient ? 'Line mode only. Set the plain color of the area' : 'Check "show area" and uncheck "use gradient" to change' }}
+          </Tooltip>
+
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-from</code>
+            <input type="color" v-model="config.dataGradientFrom" ref="dataGradientFrom"/>
+            <Tooltip :target="dataGradientFrom">
+                Set the gradient "from" color
+            </Tooltip>
+          </label>
+  
+          <label class="flex flex-col">
+            <code class="dark:text-teal-200">data-gradient-to</code>
+            <input type="color" v-model="config.dataGradientTo" ref="dataGradientTo"/>
+            <Tooltip :target="dataGradientTo">
+                Set the gradient "to" color
+            </Tooltip>
+          </label>
   
           <label class="flex flex-col">
             <code class="dark:text-teal-200">data-plot-color</code>
@@ -1015,22 +1059,6 @@ function delayRand() {
           <Tooltip :target="dataLastValueColor">
               Set the text color of the last value data label
           </Tooltip>
-  
-          <label class="flex flex-col">
-            <code class="dark:text-teal-200">data-gradient-from</code>
-            <input type="color" v-model="config.dataGradientFrom" ref="dataGradientFrom"/>
-            <Tooltip :target="dataGradientFrom">
-              Set the gradient "from" color
-          </Tooltip>
-          </label>
-  
-          <label class="flex flex-col">
-            <code class="dark:text-teal-200">data-gradient-to</code>
-            <input type="color" v-model="config.dataGradientTo" ref="dataGradientTo"/>
-            <Tooltip :target="dataGradientTo">
-              Set the gradient "to" color
-          </Tooltip>
-          </label>
   
           <label class="flex flex-col">
             <code class="dark:text-teal-200">data-gradient-from-opacity</code>
